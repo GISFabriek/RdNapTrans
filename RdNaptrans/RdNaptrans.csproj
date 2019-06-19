@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="resources\rdnaptrans\nlgeo04.grd" />
+    <None Remove="resources\rdnaptrans\x2c.grd" />
+    <None Remove="resources\rdnaptrans\y2c.grd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="resources\rdnaptrans\nlgeo04.grd" />
+    <EmbeddedResource Include="resources\rdnaptrans\x2c.grd" />
+    <EmbeddedResource Include="resources\rdnaptrans\y2c.grd" />
+  </ItemGroup>
+
+</Project>
