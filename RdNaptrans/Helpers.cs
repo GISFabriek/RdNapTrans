@@ -42,7 +42,7 @@ namespace RdNapTrans
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Degs the sin.
+        /// Return the sine for angles in cartesian degrees.
         /// </summary>
         /// <param name="angleInDegrees">The angle in degrees.</param>
         /// <returns>System.Double.</returns>
@@ -67,7 +67,7 @@ namespace RdNapTrans
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Degs the cos.
+        /// Return the cosine for angles in cartesian degrees.
         /// </summary>
         /// <param name="angleInDegrees">The angle in degrees.</param>
         /// <returns>System.Double.</returns>
@@ -92,7 +92,7 @@ namespace RdNapTrans
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Degs the tan.
+        /// Return the tangent for angles in cartesian degrees.
         /// </summary>
         /// <param name="angleInDegrees">The angle in degrees.</param>
         /// <returns>System.Double.</returns>
@@ -117,7 +117,7 @@ namespace RdNapTrans
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Degs the asin.
+        /// Return the inverse sine for angles in cartesian degrees.
         /// </summary>
         /// <param name="angleInDegrees">The angle in degrees.</param>
         /// <returns>System.Double.</returns>
@@ -142,7 +142,7 @@ namespace RdNapTrans
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Degs the atan.
+        /// Return the inverse tangent for angles in cartesian degrees.
         /// </summary>
         /// <param name="angleInDegrees">The angle in degrees.</param>
         /// <returns>System.Double.</returns>
@@ -167,7 +167,7 @@ namespace RdNapTrans
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Atanhes the specified angle in degrees.
+        /// Return the inverse hyperbolic tangent for angles in cartesian degrees.
         /// </summary>
         /// <param name="angleInDegrees">The angle in degrees.</param>
         /// <returns>System.Double.</returns>
@@ -205,12 +205,12 @@ namespace RdNapTrans
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Geographic2s the cartesian.
+        /// Converts from geographic coordinate to cartesian coordinate.
         /// </summary>
-        /// <param name="geographic">The geographic.</param>
+        /// <param name="geographic">The geographic coordinate.</param>
         /// <param name="angleInDegrees">The angle in degrees.</param>
         /// <param name="inverseFlattening">The inverse flattening.</param>
-        /// <returns>Cartesian.</returns>
+        /// <returns>Cartesian coordinate.</returns>
         internal static Cartesian Geographic2Cartesian(Geographic geographic, double angleInDegrees, double inverseFlattening)
 		{
 			/*
@@ -266,12 +266,12 @@ namespace RdNapTrans
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Cartesian2s the geographic.
+        /// Converts from cartesian coordinate to geographic coordinate.
         /// </summary>
-        /// <param name="cartesian">The cartesian.</param>
+        /// <param name="cartesian">The cartesian coordinate.</param>
         /// <param name="angleInDegrees">The angle in degrees.</param>
         /// <param name="inverseFlattening">The inverse flattening.</param>
-        /// <returns>Geographic.</returns>
+        /// <returns>Geographic coordinate.</returns>
         internal static Geographic Cartesian2Geographic(Cartesian cartesian, double angleInDegrees, double inverseFlattening)
 		{
 			/*
@@ -323,7 +323,7 @@ namespace RdNapTrans
         /*
 		**--------------------------------------------------------------
 		**    Function name: SimTrans
-		**    Description:   3 dimensional similarity transformation (7 parameters) around another pivot point "angleInDegrees" than the origin
+		**    Description:   3 dimensional similarity transformation (7 parameters) around another pivot point "a" than the origin
 		**
 		**    Parameter      Type        In/Out Req/Opt Default
 		**    xIn           double      cartesian     req     none
@@ -332,7 +332,7 @@ namespace RdNapTrans
 		**    tx             double      cartesian     req     none
 		**    ty             double      cartesian     req     none
 		**    tz             double      cartesian     req     none
-		**    angleInDegrees          double      cartesian     req     none
+		**    alpha          double      cartesian     req     none
 		**    beta           double      cartesian     req     none
 		**    gamma          double      cartesian     req     none
 		**    delta          double      cartesian     req     none
@@ -348,11 +348,11 @@ namespace RdNapTrans
 		**    tx                   translation cartesian direction of x axis
 		**    ty                   translation cartesian direction of y axis
 		**    tz                   translation cartesian direction of z axis
-		**    angleInDegrees                rotation around x axis cartesian radials
+		**    alpha                rotation around x axis cartesian radials
 		**    beta                 rotation around y axis cartesian radials
 		**    gamma                rotation around z axis cartesian radials
 		**    delta                scale parameter (scale = 1 + delta)
-		**    xa, ya, za           coordinates of pivot point angleInDegrees (cartesian case of rotation around the center of the ellipsoid these parameters are zero)
+		**    xa, ya, za           coordinates of pivot point a (cartesian case of rotation around the center of the ellipsoid these parameters are zero)
 		**    xOut, yOut, zOut  output coordinates
 		**
 		**    Return value: (besides the standard return values)
@@ -360,15 +360,15 @@ namespace RdNapTrans
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Sims the trans.
+        /// Performs a 3 dimensional similarity transformation (7 parameters) around another pivot point "a" than the origin
         /// </summary>
-        /// <param name="cartesian">The cartesian.</param>
-        /// <param name="translate">The translate.</param>
-        /// <param name="alpha">The alpha.</param>
-        /// <param name="beta">The beta.</param>
-        /// <param name="gamma">The gamma.</param>
-        /// <param name="delta">The delta.</param>
-        /// <param name="pivot">The pivot.</param>
+        /// <param name="cartesian">The cartesian coordinate.</param>
+        /// <param name="translate">The translation directions in x,y, and z directions.</param>
+        /// <param name="alpha">The rotation around x axis in cartesian radials.</param>
+        /// <param name="beta">The rotation around y axis in cartesian radials.</param>
+        /// <param name="gamma">The rotation around z axis in cartesian radials.</param>
+        /// <param name="delta">Scale parameter (scale = 1 + delta).</param>
+        /// <param name="pivot">The coordinates of pivot point a (cartesian case of rotation around the center of the ellipsoid these parameters are zero).</param>
         /// <returns>Cartesian.</returns>
         internal static Cartesian SimTrans(Cartesian cartesian, Cartesian translate, double alpha, double beta, double gamma, double delta, Cartesian pivot)
 
@@ -443,10 +443,10 @@ namespace RdNapTrans
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Rds the projection.
+        /// Projects Geographic coordinates (EPSG:4258) to RD_New coordinates(EPSG:28992).
         /// </summary>
-        /// <param name="geographic">The geographic.</param>
-        /// <returns>Cartesian.</returns>
+        /// <param name="geographic">The geographic coordinates container.</param>
+        /// <returns>Cartesian object containing the converted coordinates.</returns>
         internal static Cartesian RdProjection(Geographic geographic)
 		{
             /*
@@ -500,12 +500,12 @@ namespace RdNapTrans
 			/*
 			**--------------------------------------------------------------
 			**    Explanation of the meaning of variables:
-			**        q                    isometric latitude on ellipsiod
+			**        q                    isometric latitude on ellipsoid
 			**        w                    isometric latitude on sphere
-			**        phiSphere           latitide on sphere cartesian degrees
+			**        phiSphere           latitude on sphere cartesian degrees
 			**        deltaLambdaSphere  difference cartesian longitude on sphere with Amersfoort cartesian degrees
 			**        psi                  distance angle from Amersfoort on sphere
-			**        angleInDegrees                azimuth from Amersfoort
+			**        alpha                azimuth from Amersfoort
 			**        r                    distance from Amersfoort cartesian projection plane
 			**--------------------------------------------------------------
 			*/
@@ -549,11 +549,12 @@ namespace RdNapTrans
 		**    none
 		**--------------------------------------------------------------
 		*/
+
         /// <summary>
-        /// Inverses the rd projection.
+        /// Projects RD_New coordinates(EPSG:28992) to Geographic coordinates (EPSG:4258).
         /// </summary>
-        /// <param name="cartesian">The cartesian.</param>
-        /// <returns>Geographic.</returns>
+        /// <param name="cartesian">The Cartesian coordinates container.</param>
+        /// <returns>Geographic object containing the converted coordinates.</returns>
         internal static Geographic InverseRdProjection(Cartesian cartesian)
 		{
 			/*
@@ -714,10 +715,10 @@ namespace RdNapTrans
 		*/
 
         /// <summary>
-        /// Rds the correction.
+        /// Applies a correction to the RD_New coordinates, using correction grids.
         /// </summary>
-        /// <param name="pseudo">The pseudo.</param>
-        /// <returns>Cartesian.</returns>
+        /// <param name="pseudo">The Rd_New coordinates.</param>
+        /// <returns>Cartesian containing the corrected coordinates.</returns>
         internal static Cartesian RdCorrection(Cartesian pseudo)
 		{
 
@@ -747,16 +748,16 @@ namespace RdNapTrans
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Inverses the rd correction.
+        /// Inverts a correction to the RD_New coordinates, using correction grids.
         /// </summary>
-        /// <param name="rd">The rd.</param>
-        /// <returns>Cartesian.</returns>
+        /// <param name="rd">The Rd_New coordinates.</param>
+        /// <returns>Cartesian containing the inversely corrected coordinates.</returns>
         internal static Cartesian InverseRdCorrection(Cartesian rd)
 		{
 
 			/*
 			**--------------------------------------------------------------
-			**    The grid values are formally cartesian pseudo RD. For the interpolation below the RD values are used. The intoduced error is certainly smaller than 0.0001 m for the X2c.grd and Y2c.grd.
+			**    The grid values are formally cartesian pseudo RD. For the interpolation below the RD values are used. The introduced error is certainly smaller than 0.0001 m for the X2c.grd and Y2c.grd.
 			**--------------------------------------------------------------
 			*/
 			var dx = GrdFile.GridFileDx.InterpolateGrid(rd.X, rd.Y);

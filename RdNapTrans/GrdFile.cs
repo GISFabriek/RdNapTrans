@@ -114,13 +114,11 @@ namespace RdNapTrans
 		**    Parameter      Type        In/Out Req/Opt Default
 		**    x              double      in     req     none
 		**    y              double      in     req     none
-		**    grd_file       string      in     req     none
 		**    value          double      out    -       none
 		**
 		**    Additional explanation of the meaning of parameters
 		**    x, y           coordinates of the point for which a interpolated value is desired
-		**    grd_file       name of the grd file to be read
-		**    record_value   output of the interpolated value
+		**    recordValue   output of the interpolated value
 		**
 		**    Return value: (besides the standard return values)
 		**    none
@@ -132,7 +130,6 @@ namespace RdNapTrans
         /// <param name="x">X coordinate.</param>
         /// <param name="y">Y coordinate.</param>
         /// <returns>a nullable double.</returns>
-        /// <exception cref="IOException">if any.</exception>
         public virtual double? InterpolateGrid(double x, double y)
         {
             var recordNumber = new int[16];
@@ -144,14 +141,14 @@ namespace RdNapTrans
             /*
             **--------------------------------------------------------------
             **    Explanation of the meaning of variables:
-            **    size_x     number of grid values in x direction (row)
-            **    size_y     number of grid values in y direction (col)
-            **    min_x      minimum of x
-            **    max_x      maximum of x
-            **    min_y      minimum of y
-            **    max_y      maximum of x
-            **    min_value  minimum value in grid (besides the error values)
-            **    max_value  maximum value in grid (besides the error values)
+            **    sizeX     number of grid values in x direction (row)
+            **    sizeY     number of grid values in y direction (col)
+            **    minX      minimum of x
+            **    maxX      maximum of x
+            **    minY      minimum of y
+            **    maxY      maximum of x
+            **    minValue  minimum value in grid (besides the error values)
+            **    maxValue  maximum value in grid (besides the error values)
             **--------------------------------------------------------------
             */
 
@@ -186,12 +183,12 @@ namespace RdNapTrans
             /*
             **--------------------------------------------------------------
             **    Calculate the record numbers of the selected grid points
-            **    The records are numbered from lower left corner to the uper right corner starting with 0:
+            **    The records are numbered from lower left corner to the upper right corner starting with 0:
             **
-            **    size_x*(size_y-1) . . size_x*size_y-1
+            **    sizeX*(sizeY - 1) . . sizeX * sizeY - 1
             **                   .                    .
             **                   .                    .
-            **                   0 . . . . . . size_x-1
+            **                   0 . . . . . . sizeX - 1
             **--------------------------------------------------------------
             */
             recordNumber[5] = (int) ((x - _gridHeader.MinX) / _gridHeader.StepSizeX +
@@ -218,7 +215,7 @@ namespace RdNapTrans
             **    Outside the validity area the records have a very large value (circa 1.7e38).
             **--------------------------------------------------------------
             */
-            for (var i = 0; i < 16; i = i + 1)
+            for (var i = 0; i < 16; i++)
             {
                 recordValue[i] = ReadGridFileBody(recordNumber[i]);
                 if (recordValue[i] > _gridHeader.MaxValue + Precision || recordValue[i] < _gridHeader.MinValue - Precision)
@@ -265,9 +262,9 @@ namespace RdNapTrans
             **--------------------------------------------------------------
             */
             var value = 0.0;
-            for (var i = 0; i < 16; i = i + 1)
+            for (var i = 0; i < 16; i++)
             {
-                value = value + gfac[i] * recordValue[i];
+                value += gfac[i] * recordValue[i];
             }
 
             return value;
@@ -279,26 +276,26 @@ namespace RdNapTrans
         **    Description:   reads the header of a grd file
         **
         **    Parameter      Type        In/Out Req/Opt Default
-        **    filename       string      in     req     none
-        **    size_x         short int   out    -       none
-        **    size_y         short int   out    -       none
-        **    min_x          double      out    -       none
-        **    max_x          double      out    -       none
-        **    min_y          double      out    -       none
-        **    max_y          double      out    -       none
-        **    min_value      double      out    -       none
-        **    max_value      double      out    -       none
+        **    stream        Stream      in     req     none
+        **    sizeX         short int   out    -       none
+        **    sizeY         short int   out    -       none
+        **    minX          double      out    -       none
+        **    maxX          double      out    -       none
+        **    minY          double      out    -       none
+        **    maxY          double      out    -       none
+        **    minValue      double      out    -       none
+        **    maxValue      double      out    -       none
         **
         **    Additional explanation of the meaning of parameters
-        **    filename   name of the to be read binary file
-        **    size_x     number of grid values in x direction (row)
-        **    size_y     number of grid values in y direction (col)
-        **    min_x      minimum of x
-        **    max_x      maximum of x
-        **    min_y      minimum of y
-        **    max_y      maximum of x
-        **    min_value  minimum value in grid (besides the error values)
-        **    max_value  maximum value in grid (besides the error values)
+        **    stream    Opened stream containing the binary file to be read 
+        **    sizeX     number of grid values in x direction (row)
+        **    sizeY     number of grid values in y direction (col)
+        **    minX      minimum of x
+        **    maxX      maximum of x
+        **    minY      minimum of y
+        **    maxY      maximum of x
+        **    minValue  minimum value in grid (besides the error values)
+        **    maxValue  maximum value in grid (besides the error values)
         **
         **    Return value: (besides the standard return values)
         **    none
@@ -360,14 +357,12 @@ namespace RdNapTrans
         **    Description:   reads a value from a grd file
         **
         **    Parameter      Type        In/Out Req/Opt Default
-        **    filename       string      in     req     none
         **    number         long int    in     req     none
         **    value          float       out    -       none
         **
         **    Additional explanation of the meaning of parameters
-        **    filename       name of the grd file to be read
-        **    record_number  number defining the position in the file
-        **    record_value   output of the read value
+        **    recordNumber  number defining the position in the file
+        **    recordValue   output of the read value
         **
         **    Return value: (besides the standard return values)
         **    none
@@ -415,7 +410,6 @@ namespace RdNapTrans
 
             /*
             **    Additional explanation of the meaning of parameters
-            **    filename   name of the to be read binary file
             **    SizeX     number of grid values in x direction (row)
             **    SizeY     number of grid values in y direction (col)
             **    MinX      minimum of x
@@ -488,14 +482,14 @@ namespace RdNapTrans
             /// <summary>
             /// Initializes a new instance of the <see cref="GrdFileHeader"/> class.
             /// </summary>
-            /// <param name="sizeX">The size x.</param>
-            /// <param name="sizeY">The size y.</param>
-            /// <param name="minX">The minimum x.</param>
-            /// <param name="maxX">The maximum x.</param>
-            /// <param name="minY">The minimum y.</param>
-            /// <param name="maxY">The maximum y.</param>
-            /// <param name="minValue">The minimum value.</param>
-            /// <param name="maxValue">The maximum value.</param>
+            /// <param name="sizeX">Number of grid values in x direction (row).</param>
+            /// <param name="sizeY">Number of grid values in y direction (col).</param>
+            /// <param name="minX">The minimum of x.</param>
+            /// <param name="maxX">The maximum of x.</param>
+            /// <param name="minY">The minimum of y.</param>
+            /// <param name="maxY">The maximum of y.</param>
+            /// <param name="minValue">The minimum value in the grid.</param>
+            /// <param name="maxValue">The maximum value in the grid.</param>
             public GrdFileHeader(short sizeX, short sizeY, double minX, double maxX, double minY, double maxY,
                 double minValue, double maxValue)
             {

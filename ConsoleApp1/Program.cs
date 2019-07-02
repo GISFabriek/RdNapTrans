@@ -9,9 +9,9 @@ namespace ConsoleApp1
         static void Main()
         {
             var input = new Geographic(53.160753042, 4.824761912, 42.8614); // Texel
-            Console.WriteLine($"Input: " + input);
+            Console.WriteLine("Input: " + input);
             var output = Transformer.Etrs2Rdnap(input);
-            Console.WriteLine($"Output: " + output);
+            Console.WriteLine("Output: " + output);
             Console.ReadKey();
         }
     }

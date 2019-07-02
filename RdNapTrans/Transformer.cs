@@ -53,7 +53,7 @@ namespace RdNapTrans
         **--------------------------------------------------------------
         */
         /// <summary>
-        /// Etrs2Rd.
+        /// Converts an ETRS89 (EPSG:4258) coordinate to an RD_New (EPSG:28992) coordinate.
         /// </summary>
         /// <param name="etrs">a <seealso cref="Geographic" /> object containing ETRS89 coordinates.</param>
         /// <returns>a <seealso cref="Cartesian" /> object containing RD coordinates.</returns>
@@ -109,7 +109,7 @@ namespace RdNapTrans
         **--------------------------------------------------------------
         */
         /// <summary>
-        /// Rd2Etrs.
+        /// Converts RD_New (EPSG:28992) coordinateS to ETRS89 (EPSG:4258) coordinateS.
         /// </summary>
         /// <param name="rd">a <seealso cref="Cartesian" /> object containing RD coordinates.</param>
         /// <returns>a <seealso cref="Geographic" /> object containing ETRS89 coordinates.</returns>
@@ -171,10 +171,10 @@ namespace RdNapTrans
         **--------------------------------------------------------------
         */
         /// <summary>
-        /// Etrs2Nap.
+        /// Converts AN ellipsoidal ETRS89 (EPSG:28992) height to an NAP (EPSG:4258) height.
         /// </summary>
         /// <param name="etrs">a <seealso cref="Geographic" /> object containing ETRS89 coordinates.</param>
-        /// <returns>a nullable double.</returns>
+        /// <returns>a nullable double containing the NAP height (if all went well).</returns>
 
         public static double? Etrs2Nap(Geographic etrs)
         {
@@ -182,8 +182,8 @@ namespace RdNapTrans
             **--------------------------------------------------------------
             **    Explanation of the meaning of variables:
             **        n  geoid height
-            **    on error (outside geoid grid) nap is not compted
-            **    instead in etrs2rdnap nap=h_bessel
+            **    on error (outside geoid grid) nap is not computed
+            **    instead in etrs2rdnap nap=hBessel
             **--------------------------------------------------------------
             */
 
@@ -221,12 +221,12 @@ namespace RdNapTrans
         **--------------------------------------------------------------
         */
         /// <summary>
-        /// Nap2Etrs.
+        ///Converts an NAP (EPSG:4258) height to ellipsoidal ETRS89 (EPSG:28992) height.
         /// </summary>
         /// <param name="phi">Latitude in degrees.</param>
         /// <param name="lambda">Longitude in degrees.</param>
-        /// <param name="nap">Ellipsoidal height.</param>
-        /// <returns>a nullable double.</returns>
+        /// <param name="nap">NAP height at position phi, lambda.</param>
+        /// <returns>a nullable double containing the ellipsoidal height (if all went well).</returns>
         public static double? Nap2Etrs(double phi, double lambda, double nap)
         {
             /*
@@ -263,11 +263,10 @@ namespace RdNapTrans
         **--------------------------------------------------------------
         */
         /// <summary>
-        /// Etrs2Rdnap.
+        /// Converts ETRS89 (EPSG:4258) coordinates to RD_New (EPSG:28992) coordinates (including a vertical NAP coordinate).
         /// </summary>
         /// <param name="etrs">a <seealso cref="Geographic" /> object containing ETRS89 coordinates.</param>
         /// <returns>a <seealso cref="Cartesian" /> object containing RD coordinates.</returns>
-
         public static Cartesian Etrs2Rdnap(Geographic etrs)
         {
             var rd = Etrs2Rd(etrs);
@@ -302,11 +301,10 @@ namespace RdNapTrans
         **--------------------------------------------------------------
         */
         /// <summary>
-        /// Rdnap2Etrs.
+        /// Converts RD_New (EPSG:28992) coordinates to ETRS89 (EPSG:4258) coordinates (including a vertical h coordinate).
         /// </summary>
         /// <param name="rdnap">a <seealso cref="Cartesian" /> object containing RD coordinates.</param>
         /// <returns>a <seealso cref="Geographic" /> object containing ETRS89 coordinates.</returns>
-
         public static Geographic Rdnap2Etrs(Cartesian rdnap)
         {
             var etrs = Rd2Etrs(rdnap);
