@@ -5,15 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="resources\rdnaptrans\nlgeo04.grd" />
-    <None Remove="resources\rdnaptrans\x2c.grd" />
-    <None Remove="resources\rdnaptrans\y2c.grd" />
+    <None Remove="Resources\nlgeo04.grd" />
+    <None Remove="Resources\x2c.grd" />
+    <None Remove="Resources\y2c.grd" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="resources\rdnaptrans\nlgeo04.grd" />
-    <EmbeddedResource Include="resources\rdnaptrans\x2c.grd" />
-    <EmbeddedResource Include="resources\rdnaptrans\y2c.grd" />
+    <EmbeddedResource Include="Resources\nlgeo04.grd">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\x2c.grd">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\y2c.grd">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

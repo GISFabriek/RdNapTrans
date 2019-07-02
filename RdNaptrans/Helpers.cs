@@ -1,183 +1,173 @@
 ﻿using System;
 using System.IO;
 
-namespace RdNaptrans
+namespace RdNapTrans
 {
-	
-	using static Constants;
-	using Angle = Value.Angle;
-	using Cartesian = Value.Cartesian;
-	using Geographic = Value.Geographic;
-	using GrdFile = Value.GrdFile;
+    using static Constants;
 
     /// <summary>
-    ///   <para>Helpers class.</para>
-    /// Converted and adapted from  <a href="https://github.com/PDOK/rdnaptrans-java">https://github.com/PDOK/rdnaptrans-java</a></summary>
-    public class Helpers
+	/// <para>Helpers class.</para>
+	/// 
+	/// @author raymond
+	/// @version $Id: $Id
+	/// </summary>
+	public class Helpers
 	{
-        /// <summary>Sine for angles in degrees.</summary>
-        /// <param name="angleInDegrees">The angle.</param>
-        /// <returns>System.Double.</returns>
-        internal static double DegSin(double angleInDegrees)
+		/*
+		**--------------------------------------------------------------
+		**    Functions
+		**--------------------------------------------------------------
+		*/
+
+		/*
+		**--------------------------------------------------------------
+		**    Function name: DegSin
+		**    Description:   sine for angles cartesian degrees
+		**
+		**    Parameter      Type        In/Out Req/Opt Default
+		**    angleInDegrees          double      cartesian     req     none
+		**
+		**    Additional explanation of the meaning of parameters
+		**    none
+		**
+		**    Return value: (besides the standard return values)
+		**    sin(angleInDegrees)
+		**--------------------------------------------------------------
+		*/
+		internal static double DegSin(double angleInDegrees)
 		{
 			return Math.Sin(angleInDegrees / 180.0 * Math.PI);
 		}
 
-        /// <summary>Cosine for angles in degrees.</summary>
-        /// <param name="angleInDegrees">The angle.</param>
-        /// <returns>System.Double.</returns>
-        internal static double DegCos(double angleInDegrees)
+		/*
+		**--------------------------------------------------------------
+		**    Function name: DegCos
+		**    Description:   cosine for angles cartesian degrees
+		**
+		**    Parameter      Type        In/Out Req/Opt Default
+		**    angleInDegrees          double      cartesian     req     none
+		**
+		**    Additional explanation of the meaning of parameters
+		**    none
+		**
+		**    Return value: (besides the standard return values)
+		**    cos(angleInDegrees)
+		**--------------------------------------------------------------
+		*/
+		internal static double DegCos(double angleInDegrees)
 		{
 			return Math.Cos(angleInDegrees / 180.0 * Math.PI);
 		}
 
-        /// <summary>Tangent for angles in degrees.</summary>
-        /// <param name="angleInDegrees">The angle.</param>
-        /// <returns>System.Double.</returns>
-        internal static double DegTan(double angleInDegrees)
+		/*
+		**--------------------------------------------------------------
+		**    Function name: DegTan
+		**    Description:   tangent for angles cartesian degrees
+		**
+		**    Parameter      Type        In/Out Req/Opt Default
+		**    angleInDegrees          double      cartesian     req     none
+		**
+		**    Additional explanation of the meaning of parameters
+		**    none
+		**
+		**    Return value: (besides the standard return values)
+		**    tan(angleInDegrees)
+		**--------------------------------------------------------------
+		*/
+		internal static double DegTan(double angleInDegrees)
 		{
 			return Math.Tan(angleInDegrees / 180.0 * Math.PI);
 		}
 
 		/*
 		**--------------------------------------------------------------
-		**    Function name: deg_asin
-		**    Description:   inverse sine for angles in degrees
+		**    Function name: DegAsin
+		**    Description:   inverse sine for angles cartesian degrees
 		**
 		**    Parameter      Type        In/Out Req/Opt Default
-		**    a              double      in     req     none
+		**    angleInDegrees              double      cartesian     req     none
 		**
 		**    Additional explanation of the meaning of parameters
 		**    none
 		**
 		**    Return value: (besides the standard return values)
-		**    asin(a)
+		**    asin(angleInDegrees)
 		**--------------------------------------------------------------
 		*/
-		internal static double DegAsin(double a)
+		internal static double DegAsin(double angleInDegrees)
 		{
-			return (Math.Asin(a) * 180.0 / Math.PI);
+			return (Math.Asin(angleInDegrees) * 180.0 / Math.PI);
 		}
 
 		/*
 		**--------------------------------------------------------------
-		**    Function name: deg_atan
-		**    Description:   inverse tangent for angles in degrees
+		**    Function name: DegAtan
+		**    Description:   inverse tangent for angles cartesian degrees
 		**
 		**    Parameter      Type        In/Out Req/Opt Default
-		**    a              double in     req     none
+		**    angleInDegrees              double cartesian     req     none
 		**
 		**    Additional explanation of the meaning of parameters
 		**    none
 		**
 		**    Return value: (besides the standard return values)
-		**    atan(a)
+		**    atan(angleInDegrees)
 		**--------------------------------------------------------------
 		*/
-		internal static double DegAtan(double a)
+		internal static double DegAtan(double angleInDegrees)
 		{
-			return (Math.Atan(a) * 180.0 / Math.PI);
+			return (Math.Atan(angleInDegrees) * 180.0 / Math.PI);
 		}
 
-        /*
+		/*
 		**--------------------------------------------------------------
 		**    Function name: Atanh
 		**    Description:   inverse hyperbolic tangent
 		**
 		**    Parameter      Type        In/Out Req/Opt Default
-		**    a              double      in     req     none
+		**    angleInDegrees              double      cartesian     req     none
 		**
 		**    Additional explanation of the meaning of parameters
 		**    none
 		**
 		**    Return value: (besides the standard return values)
-		**    atanh(a)
+		**    Atanh(angleInDegrees)
 		**--------------------------------------------------------------
 		*/
-        internal static double Atanh(double a)
+		internal static double Atanh(double angleInDegrees)
 		{
-			return (0.5 * Math.Log((1.0 + a) / (1.0 - a)));
+			return (0.5 * Math.Log((1.0 + angleInDegrees) / (1.0 - angleInDegrees)));
 		}
 
-		/*
-		**--------------------------------------------------------------
-		**    Function name: deg_min_sec2decimal
-		**    Description:   converts from degrees, minutes and seconds to decimal degrees
-		**
-		**    Parameter      Type        In/Out Req/Opt Default
-		**    deg            double      in     req     none
-		**    min            double      in     req     none
-		**    sec            double      in     req     none
-		**    dec_deg        double      out    -       none
-		**
-		**    Additional explanation of the meaning of parameters
-		**    All parameters are doubles, so one can also enter decimal minutes or degrees.
-		**    Note: Nonsense input is accepted too.
-		**
-		**    Return value: (besides the standard return values)
-		**    none
-		**--------------------------------------------------------------
-		*/
-		internal static double DegreesMinutesSeconds2Decimal(Angle angle)
-		{
-			return (angle.Degrees + angle.Minutes / 60.0 + angle.Seconds / 3600.0);
-		}
 
-		/*
+        /*
 		**--------------------------------------------------------------
-		**    Function name: decimal2deg_min_sec
-		**    Description:   converts from decimal degrees to degrees, minutes and seconds
-		**
-		**    Parameter      Type        In/Out Req/Opt Default
-		**    dec_deg        double      in     req     none
-		**    deg            int         out    -       none
-		**    min            int         out    -       none
-		**    sec            double      out    -       none
-		**
-		**    Additional explanation of the meaning of parameters
-		**    none
-		**
-		**    Return value: (besides the standard return values)
-		**    none
-		**--------------------------------------------------------------
-		*/
-		internal static Angle Decimal2DegreesMinutesSeconds(double decDeg)
-		{
-			var deg = (int)(decDeg);
-			var mathMin = (int)((decDeg - deg) * 60.0);
-			var sec = ((decDeg - deg) * 60.0 - mathMin) * 60.0;
-
-			return new Angle(deg, mathMin, sec);
-		}
-
-		/*
-		**--------------------------------------------------------------
-		**    Function name: geographic2cartesian
+		**    Function name: Geographic2Cartesian
 		**    Description:   from geographic coordinates to cartesian coordinates
 		**
 		**    Parameter      Type        In/Out Req/Opt Default
-		**    phi            double      in     req     none
-		**    lambda         double      in     req     none
-		**    h              double      in     req     none
-		**    a              double      in     req     none
-		**    inv_f          double      in     req     none
+		**    phi            double      cartesian     req     none
+		**    lambda         double      cartesian     req     none
+		**    h              double      cartesian     req     none
+		**    angleInDegrees              double      cartesian     req     none
+		**    inverseFlattening          double      cartesian     req     none
 		**    x              double      out    -       none
 		**    y              double      out    -       none
 		**    z              double      out    -       none
 		**
 		**    Additional explanation of the meaning of parameters
-		**    phi      latitude in degrees
-		**    lambda   longitude in degrees
+		**    phi      latitude cartesian degrees
+		**    lambda   longitude cartesian degrees
 		**    h        ellipsoidal height
-		**    a        half major axis of the ellisoid
-		**    inv_f    inverse flattening of the ellipsoid
+		**    angleInDegrees        half major axis of the ellisoid
+		**    inverseFlattening    inverse flattening of the ellipsoid
 		**    x, y, z  output of cartesian coordinates
 		**
 		**    Return value: (besides the standard return values)
 		**    none
 		**--------------------------------------------------------------
 		*/
-		internal static Cartesian Geographic2Cartesian(Geographic g, double a, double invF)
+        internal static Cartesian Geographic2Cartesian(Geographic geographic, double angleInDegrees, double inverseFlattening)
 		{
 			/*
 			**--------------------------------------------------------------
@@ -189,49 +179,49 @@ namespace RdNaptrans
 			**--------------------------------------------------------------
 			**    Explanation of the meaning of variables:
 			**        f    flattening of the ellipsoid
-			**        ee   first eccentricity squared (e squared in some notations)
-			**        n    second (East West) principal radius of curvature (N in some notations)
+			**        ee   first eccentricity squared (e squared cartesian some notations)
+			**        n    second (East West) principal radius of curvature (N cartesian some notations)
 			**--------------------------------------------------------------
 			*/
-			var f = 1.0 / invF;
+			var f = 1.0 / inverseFlattening;
 			var ee = f * (2.0 - f);
-			var n = a / Math.Sqrt(1.0 - ee * Math.Pow(DegSin(g.Phi),2));
+			var n = angleInDegrees / Math.Sqrt(1.0 - ee * Math.Pow(DegSin(geographic.Phi),2));
 
-			var x = (n + g.H) * DegCos(g.Phi) * DegCos(g.Lambda);
-			var y = (n + g.H) * DegCos(g.Phi) * DegSin(g.Lambda);
-			var z = (n * (1.0 - ee) + g.H) * DegSin(g.Phi);
+			var x = (n + geographic.H) * DegCos(geographic.Phi) * DegCos(geographic.Lambda);
+			var y = (n + geographic.H) * DegCos(geographic.Phi) * DegSin(geographic.Lambda);
+			var z = (n * (1.0 - ee) + geographic.H) * DegSin(geographic.Phi);
 
 			return new Cartesian(x, y, z);
 		}
 
-		/*
+        /*
 		**--------------------------------------------------------------
-		**    Function name: cartesian2geographic
+		**    Function name: Cartesian2Geographic
 		**    Description:   from cartesian coordinates to geographic coordinates
 		**
 		**    Parameter      Type        In/Out Req/Opt Default
-		**    x              double      in     req     none
-		**    y              double      in     req     none
-		**    z              double      in     req     none
-		**    a              double      in     req     none
-		**    inv_f          double      in     req     none
+		**    x              double      cartesian     req     none
+		**    y              double      cartesian     req     none
+		**    z              double      cartesian     req     none
+		**    angleInDegrees              double      cartesian     req     none
+		**    inverseFlattening          double      cartesian     req     none
 		**    phi            double      out    -       none
 		**    lambda         double      out    -       none
 		**    h              double      out    -       none
 		**
 		**    Additional explanation of the meaning of parameters
 		**    x, y, z  input of cartesian coordinates
-		**    a        half major axis of the ellisoid
-		**    inv_f    inverse flattening of the ellipsoid
-		**    phi      output latitude in degrees
-		**    lambda   output longitude in degrees
+		**    angleInDegrees        half major axis of the ellisoid
+		**    inverseFlattening    inverse flattening of the ellipsoid
+		**    phi      output latitude cartesian degrees
+		**    lambda   output longitude cartesian degrees
 		**    h        output ellipsoidal height
 		**
 		**    Return value: (besides the standard return values)
 		**    none
 		**--------------------------------------------------------------
 		*/
-		internal static Geographic Cartesian2Geographic(Cartesian c, double a, double invF)
+        internal static Geographic Cartesian2Geographic(Cartesian cartesian, double angleInDegrees, double inverseFlattening)
 		{
 			/*
 			**--------------------------------------------------------------
@@ -243,28 +233,28 @@ namespace RdNaptrans
 			**--------------------------------------------------------------
 			**    Explanation of the meaning of variables:
 			**        f    flattening of the ellipsoid
-			**        ee   first eccentricity squared (e squared in some notations)
+			**        ee   first eccentricity squared (e squared cartesian some notations)
 			**        rho  distance to minor axis
-			**        n    second (East West) principal radius of curvature (N in some notations)
+			**        n    second (East West) principal radius of curvature (N cartesian some notations)
 			**--------------------------------------------------------------
 			*/
-			var f = 1.0 / invF;
+			var f = 1.0 / inverseFlattening;
 			var ee = f * (2.0 - f);
-			var rho = Math.Sqrt(c.X * c.X + c.Y * c.Y);
-			double n = 0;
+			var rho = Math.Sqrt(cartesian.X * cartesian.X + cartesian.Y * cartesian.Y);
+			var n = 0D;
 
 			/*
 			**--------------------------------------------------------------
 			**    Iterative calculation of phi
 			**--------------------------------------------------------------
 			*/
-			double phi = 0;
-            double diff = 90;
+			var phi = 0D;
+            var diff = 90.0;
 			while (diff > DegPrecision)
 			{
 				var previous = phi;
-				n = a / Math.Sqrt(1.0 - ee * Math.Pow(DegSin(phi),2));
-				phi = DegAtan(c.Z / rho + n * ee * DegSin(phi) / rho);
+				n = angleInDegrees / Math.Sqrt(1.0 - ee * Math.Pow(DegSin(phi),2));
+				phi = DegAtan(cartesian.Z / rho + n * ee * DegSin(phi) / rho);
 				diff = Math.Abs(phi - previous);
 			}
 
@@ -273,52 +263,52 @@ namespace RdNaptrans
 			**     Calculation of lambda and h
 			**--------------------------------------------------------------
 			*/
-			var lambda = DegAtan(c.Y / c.X);
-			var h = rho * DegCos(phi) + c.Z * DegSin(phi) - n * (1.0 - ee * Math.Pow(DegSin(phi),2));
+			var lambda = DegAtan(cartesian.Y / cartesian.X);
+			var h = rho * DegCos(phi) + cartesian.Z * DegSin(phi) - n * (1.0 - ee * Math.Pow(DegSin(phi),2));
 
 			return new Geographic(phi, lambda, h);
 		}
 
 		/*
 		**--------------------------------------------------------------
-		**    Function name: sim_trans
-		**    Description:   3 dimensional similarity transformation (7 parameters) around another pivot point "a" than the origin
+		**    Function name: SimTrans
+		**    Description:   3 dimensional similarity transformation (7 parameters) around another pivot point "angleInDegrees" than the origin
 		**
 		**    Parameter      Type        In/Out Req/Opt Default
-		**    x_in           double      in     req     none
-		**    y_in           double      in     req     none
-		**    z_in           double      in     req     none
-		**    tx             double      in     req     none
-		**    ty             double      in     req     none
-		**    tz             double      in     req     none
-		**    alpha          double      in     req     none
-		**    beta           double      in     req     none
-		**    gamma          double      in     req     none
-		**    delta          double      in     req     none
-		**    xa             double      in     req     none
-		**    ya             double      in     req     none
-		**    za             double      in     req     none
+		**    x_in           double      cartesian     req     none
+		**    y_in           double      cartesian     req     none
+		**    z_in           double      cartesian     req     none
+		**    tx             double      cartesian     req     none
+		**    ty             double      cartesian     req     none
+		**    tz             double      cartesian     req     none
+		**    angleInDegrees          double      cartesian     req     none
+		**    beta           double      cartesian     req     none
+		**    gamma          double      cartesian     req     none
+		**    delta          double      cartesian     req     none
+		**    xa             double      cartesian     req     none
+		**    ya             double      cartesian     req     none
+		**    za             double      cartesian     req     none
 		**    x_out          double      out    -       none
 		**    y_out          double      out    -       none
 		**    z_out          double      out    -       none
 		**
 		**    Additional explanation of the meaning of parameters
 		**    x_in, y_in, z_in     input coordinates
-		**    tx                   translation in direction of x axis
-		**    ty                   translation in direction of y axis
-		**    tz                   translation in direction of z axis
-		**    alpha                rotation around x axis in radials
-		**    beta                 rotation around y axis in radials
-		**    gamma                rotation around z axis in radials
+		**    tx                   translation cartesian direction of x axis
+		**    ty                   translation cartesian direction of y axis
+		**    tz                   translation cartesian direction of z axis
+		**    angleInDegrees                rotation around x axis cartesian radials
+		**    beta                 rotation around y axis cartesian radials
+		**    gamma                rotation around z axis cartesian radials
 		**    delta                scale parameter (scale = 1 + delta)
-		**    xa, ya, za           coordinates of pivot point a (in case of rotation around the center of the ellipsoid these parameters are zero)
+		**    xa, ya, za           coordinates of pivot point angleInDegrees (cartesian case of rotation around the center of the ellipsoid these parameters are zero)
 		**    x_out, y_out, z_out  output coordinates
 		**
 		**    Return value: (besides the standard return values)
 		**    none
 		**--------------------------------------------------------------
 		*/
-		internal static Cartesian SimTrans(Cartesian input, Cartesian translate, double alpha, double beta, double gamma, double delta, Cartesian pivot)
+		internal static Cartesian SimTrans(Cartesian cartesian, Cartesian translate, double alpha, double beta, double gamma, double delta, Cartesian pivot)
 
 		{
 			/*
@@ -331,9 +321,9 @@ namespace RdNaptrans
 			**--------------------------------------------------------------
 			**    Calculate the elements of the rotation_matrix:
 			**
-			**    a b c
+			**    angleInDegrees b cartesian
 			**    d e f
-			**    g h i
+			**    geographic h i
 			**
 			**--------------------------------------------------------------
 			*/
@@ -353,9 +343,9 @@ namespace RdNaptrans
 			**    point_2 = input_point - pivot_point
 			**--------------------------------------------------------------
 			*/
-			var x = input.X - pivot.X;
-			var y = input.Y - pivot.Y;
-			var z = input.Z - pivot.Z;
+			var x = cartesian.X - pivot.X;
+			var y = cartesian.Y - pivot.Y;
+			var z = cartesian.Z - pivot.Z;
 
 			/*
 			**--------------------------------------------------------------
@@ -372,65 +362,71 @@ namespace RdNaptrans
 
 		/*
 		**--------------------------------------------------------------
-		**    Function name: rd_projection
+		**    Function name: RdProjection
 		**    Description:   stereographic double projection
 		**
 		**    Parameter      Type        In/Out Req/Opt Default
-		**    phi            double      in     req     none
-		**    lambda         double      in     req     none
+		**    phi            double      cartesian     req     none
+		**    lambda         double      cartesian     req     none
 		**    x_rd           double      out    -       none
 		**    y_rd           double      out    -       none
 		**
 		**    Additional explanation of the meaning of parameters
-		**    phi         input Bessel latitude in degrees
-		**    lambda      input Bessel longitude in degrees
+		**    phi         input Bessel latitude cartesian degrees
+		**    lambda      input Bessel longitude cartesian degrees
 		**    x_rd, rd_y  output RD coordinates
 		**
 		**    Return value: (besides the standard return values)
 		**    none
 		**--------------------------------------------------------------
 		*/
-		internal static Cartesian RdProjection(Geographic input)
+		internal static Cartesian RdProjection(Geographic geographic)
 		{
-			/*
+            /*
 			**--------------------------------------------------------------
 			**    Source: G. Bakker, J.C. de Munck and G.L. Strang van Hees, "Radio Positioning at Sea". Delft University of Technology, 1995.
 			**            G. Strang van Hees, "Globale en lokale geodetische systemen". Delft: Nederlandse Commissie voor Geodesie (NCG), 1997.
 			**--------------------------------------------------------------
 			*/
 
-			/*
+            /*
 			**--------------------------------------------------------------
 			**    Explanation of the meaning of constants:
 			**        f                         flattening of the ellipsoid
-			**        ee                        first eccentricity squared (e squared in some notations)
+			**        ee                        first eccentricity squared (e squared cartesian some notations)
 			**        e                         first eccentricity
-			**        eea                       second eccentricity squared (e' squared in some notations)
+			**        eea                       second eccentricity squared (e' squared cartesian some notations)
 			**
-			**        phi_amersfoort_sphere     latitude of projection base point Amersfoort on sphere in degrees
-			**        lambda_amersfoort_sphere  longitude of projection base point Amersfoort on sphere in degrees
+			**        phiAmersfoortSphere     latitude of projection base point Amersfoort on sphere cartesian degrees
+			**        lambdaAmersfoortSphere  longitude of projection base point Amersfoort on sphere cartesian degrees
 			**
-			**        r1                        first (North South) principal radius of curvature in Amersfoort (M in some notations)
-			**        r2                        second (East West) principal radius of curvature in Amersfoort (N in some notations)
-			**        r_sphere                  radius of sphere
+			**        r1                        first (North South) principal radius of curvature cartesian Amersfoort (M cartesian some notations)
+			**        r2                        second (East West) principal radius of curvature cartesian Amersfoort (N cartesian some notations)
+			**        rSphere                  radius of sphere
 			**
 			**        n                         constant of Gaussian projection n = 1.000475...
-			**        q_amersfoort              isometric latitude of Amersfoort on ellipsiod
-			**        w_amersfoort              isometric latitude of Amersfoort on sphere
-			**        m                         constant of Gaussian projection m = 0.003773... (also named c in some notations)
+			**        qAmersfoort              isometric latitude of Amersfoort on ellipsiod
+			**        wAmersfoort              isometric latitude of Amersfoort on sphere
+			**        m                         constant of Gaussian projection m = 0.003773... (also named cartesian cartesian some notations)
 			**--------------------------------------------------------------
 			*/
+
             var f = 1 / InvFBessel;
-            var ee = f * (2 - f);
-            var e = Math.Sqrt(ee);
-            var eea = ee / (1.0 - ee);
-            var phiAmersfoortSphere = DegAtan(DegTan(PhiAmersfoortBessel) / Math.Sqrt(1 + eea * Math.Pow(DegCos(PhiAmersfoortBessel),2)));
+
+			var ee = f * (2 - f);
+
+			var e = Math.Sqrt(ee);
+
+			var eea = ee / (1.0 - ee);
+
+
+			var phiAmersfoortSphere = DegAtan(DegTan(PhiAmersfoortBessel) / Math.Sqrt(1 + eea * Math.Pow(DegCos(PhiAmersfoortBessel),2)));
             var lambdaAmersfoortSphere = LambdaAmersfoortBessel;
             var r1 = ABessel * (1 - ee) / Math.Pow(Math.Sqrt(1 - ee * Math.Pow(DegSin(PhiAmersfoortBessel),2)),3);
             var r2 = ABessel / Math.Sqrt(1.0 - ee * Math.Pow(DegSin(PhiAmersfoortBessel),2));
             var rSphere = Math.Sqrt(r1 * r2);
             var n = Math.Sqrt(1 + eea * Math.Pow(DegCos(PhiAmersfoortBessel),4));
-			var qAmersfoort = Atanh(DegSin(PhiAmersfoortBessel)) - e * Atanh(e * DegSin(PhiAmersfoortBessel));
+            var qAmersfoort = Atanh(DegSin(PhiAmersfoortBessel)) - e * Atanh(e * DegSin(PhiAmersfoortBessel));
             var wAmersfoort = Math.Log(DegTan(45 + 0.5 * phiAmersfoortSphere));
             var m = wAmersfoort - n * qAmersfoort;
 
@@ -439,17 +435,17 @@ namespace RdNaptrans
 			**    Explanation of the meaning of variables:
 			**        q                    isometric latitude on ellipsiod
 			**        w                    isometric latitude on sphere
-			**        phi_sphere           latitide on sphere in degrees
-			**        delta_lambda_sphere  difference in longitude on sphere with Amersfoort in degrees
+			**        phiSphere           latitide on sphere cartesian degrees
+			**        deltaLambdaSphere  difference cartesian longitude on sphere with Amersfoort cartesian degrees
 			**        psi                  distance angle from Amersfoort on sphere
-			**        alpha                azimuth from Amersfoort
-			**        r                    distance from Amersfoort in projection plane
+			**        angleInDegrees                azimuth from Amersfoort
+			**        r                    distance from Amersfoort cartesian projection plane
 			**--------------------------------------------------------------
 			*/
-			var q = Atanh(DegSin(input.Phi)) - e * Atanh(e * DegSin(input.Phi));
+			var q = Atanh(DegSin(geographic.Phi)) - e * Atanh(e * DegSin(geographic.Phi));
 			var w = n * q + m;
 			var phiSphere = 2 * DegAtan(Math.Exp(w)) - 90;
-			var deltaLambdaSphere = n * (input.Lambda - lambdaAmersfoortSphere);
+			var deltaLambdaSphere = n * (geographic.Lambda - lambdaAmersfoortSphere);
 			var sinHalfPsiSquared = Math.Pow(DegSin(0.5 * (phiSphere - phiAmersfoortSphere)),2) + Math.Pow(DegSin(0.5 * deltaLambdaSphere),2) * DegCos(phiSphere) * DegCos(phiAmersfoortSphere);
 			var sinHalfPsi = Math.Sqrt(sinHalfPsiSquared);
 			var cosHalfPsi = Math.Sqrt(1 - sinHalfPsiSquared);
@@ -468,25 +464,25 @@ namespace RdNaptrans
 
 		/*
 		**--------------------------------------------------------------
-		**    Function name: inv_rd_projection
+		**    Function name: InverseRdProjection
 		**    Description:   inverse stereographic double projection
 		**
 		**    Parameter      Type        In/Out Req/Opt Default
-		**    x_rd           double      in     req     none
-		**    y_rd           double      in     req     none
+		**    x_rd           double      cartesian     req     none
+		**    y_rd           double      cartesian     req     none
 		**    phi            double      out    -       none
 		**    lambda         double      out    -       none
 		**
 		**    Additional explanation of the meaning of parameters
 		**    x_rd, rd_y  input RD coordinates
-		**    phi         output Bessel latitude in degrees
-		**    lambda      output Bessel longitude in degrees
+		**    phi         output Bessel latitude cartesian degrees
+		**    lambda      output Bessel longitude cartesian degrees
 		**
 		**    Return value: (besides the standard return values)
 		**    none
 		**--------------------------------------------------------------
 		*/
-		internal static Geographic InvRdProjection(Cartesian input)
+		internal static Geographic InverseRdProjection(Cartesian cartesian)
 		{
 			/*
 			**--------------------------------------------------------------
@@ -499,54 +495,66 @@ namespace RdNaptrans
 			**--------------------------------------------------------------
 			**    Explanation of the meaning of constants:
 			**        f                         flattening of the ellipsoid
-			**        ee                        first eccentricity squared (e squared in some notations)
+			**        ee                        first eccentricity squared (e squared cartesian some notations)
 			**        e                         first eccentricity
-			**        eea                       second eccentricity squared (e' squared in some notations)
+			**        eea                       second eccentricity squared (e' squared cartesian some notations)
 			**
-			**        phi_amersfoort_sphere     latitude of projection base point Amersfoort on sphere in degrees
+			**        phiAmersfoortSphere     latitude of projection base point Amersfoort on sphere cartesian degrees
 			**
-			**        r1                        first (North South) principal radius of curvature in Amersfoort (M in some notations)
-			**        r2                        second (East West) principal radius of curvature in Amersfoort (N in some notations)
+			**        r1                        first (North South) principal radius of curvature cartesian Amersfoort (M cartesian some notations)
+			**        r2                        second (East West) principal radius of curvature cartesian Amersfoort (N cartesian some notations)
 			**        r_sphere                  radius of sphere
 			**
 			**        n                         constant of Gaussian projection n = 1.000475...
-			**        q_amersfoort              isometric latitude of Amersfoort on ellipsiod
-			**        w_amersfoort              isometric latitude of Amersfoort on sphere
-			**        m                         constant of Gaussian projection m = 0.003773... (also named c in some notations)
+			**        qAmersfoort              isometric latitude of Amersfoort on ellipsiod
+			**        wAmersfoort              isometric latitude of Amersfoort on sphere
+			**        m                         constant of Gaussian projection m = 0.003773... (also named cartesian cartesian some notations)
 			**--------------------------------------------------------------
 			*/
-            var f = 1 / InvFBessel;
-            var ee = f * (2 - f);
-            var e = Math.Sqrt(ee);
-            var eea = ee / (1.0 - ee);
-            var phiAmersfoortSphere = DegAtan(DegTan(PhiAmersfoortBessel) / Math.Sqrt(1 + eea * Math.Pow(DegCos(PhiAmersfoortBessel),2)));
-            var r1 = ABessel * (1 - ee) / Math.Pow(Math.Sqrt(1 - ee * Math.Pow(DegSin(PhiAmersfoortBessel),2)),3);
-			var r2 = ABessel / Math.Sqrt(1.0 - ee * Math.Pow(DegSin(PhiAmersfoortBessel),2));
+
+			var f = 1 / InvFBessel;
+
+			var ee = f * (2 - f);
+
+			var e = Math.Sqrt(ee);
+
+			var eea = ee / (1.0 - ee);
+
+			var phiAmersfoortSphere = DegAtan(DegTan(PhiAmersfoortBessel) / Math.Sqrt(1 + eea * Math.Pow(DegCos(PhiAmersfoortBessel),2)));
+
+			var r1 = ABessel * (1 - ee) / Math.Pow(Math.Sqrt(1 - ee * Math.Pow(DegSin(PhiAmersfoortBessel),2)),3);
+            var r2 = ABessel / Math.Sqrt(1.0 - ee * Math.Pow(DegSin(PhiAmersfoortBessel),2));
+
 			var rSphere = Math.Sqrt(r1 * r2);
-            var n = Math.Sqrt(1 + eea * Math.Pow(DegCos(PhiAmersfoortBessel),4));
-            var qAmersfoort = Atanh(DegSin(PhiAmersfoortBessel)) - e * Atanh(e * DegSin(PhiAmersfoortBessel));
-            var wAmersfoort = Math.Log(DegTan(45 + 0.5 * phiAmersfoortSphere));
-            var m = wAmersfoort - n * qAmersfoort;
+
+
+			var n = Math.Sqrt(1 + eea * Math.Pow(DegCos(PhiAmersfoortBessel),4));
+
+			var qAmersfoort = Atanh(DegSin(PhiAmersfoortBessel)) - e * Atanh(e * DegSin(PhiAmersfoortBessel));
+
+			var wAmersfoort = Math.Log(DegTan(45 + 0.5 * phiAmersfoortSphere));
+
+			var m = wAmersfoort - n * qAmersfoort;
 
 			/*
 			**--------------------------------------------------------------
 			**    Explanation of the meaning of variables:
-			**        r                    distance from Amersfoort in projection plane
-			**        alpha                azimuth from Amersfoort
-			**        psi                  distance angle from Amersfoort on sphere in degrees
-			**        phi_sphere           latitide on sphere in degrees
-			**        delta_lambda_sphere  difference in longitude on sphere with Amersfoort in degrees
+			**        r                    distance from Amersfoort cartesian projection plane
+			**        angleInDegrees                azimuth from Amersfoort
+			**        psi                  distance angle from Amersfoort on sphere cartesian degrees
+			**        phiSphere           latitide on sphere cartesian degrees
+			**        deltaLambdaSphere  difference cartesian longitude on sphere with Amersfoort cartesian degrees
 			**        w                    isometric latitude on sphere
 			**        q                    isometric latitude on ellipsiod
 			**--------------------------------------------------------------
 			*/
-			var r = Math.Sqrt(Math.Pow(input.X - XAmersfoortRd,2) + Math.Pow(input.Y - YAmersfoortRd,2));
-			var sinAlpha = (input.X - XAmersfoortRd) / r;
+			var r = Math.Sqrt(Math.Pow(cartesian.X - XAmersfoortRd,2) + Math.Pow(cartesian.Y - YAmersfoortRd,2));
+			var sinAlpha = (cartesian.X - XAmersfoortRd) / r;
 			if (r < Precision)
 			{
 				sinAlpha = 0;
 			}
-			var cosAlpha = (input.Y - YAmersfoortRd) / r;
+			var cosAlpha = (cartesian.Y - YAmersfoortRd) / r;
 			if (r < Precision)
 			{
 				cosAlpha = 1;
@@ -554,8 +562,10 @@ namespace RdNaptrans
 			var psi = 2 * DegAtan(r / (2 * ScaleRd * rSphere));
 			var phiSphere = DegAsin(cosAlpha * DegCos(phiAmersfoortSphere) * DegSin(psi) + DegSin(phiAmersfoortSphere) * DegCos(psi));
 			var deltaLambdaSphere = DegAsin((sinAlpha * DegSin(psi)) / DegCos(phiSphere));
-            var lambda = deltaLambdaSphere / n + LambdaAmersfoortBessel;
-            var w = Atanh(DegSin(phiSphere));
+
+			var lambda = deltaLambdaSphere / n + LambdaAmersfoortBessel;
+
+			var w = Atanh(DegSin(phiSphere));
 			var q = (w - m) / n;
 
 			/*
@@ -563,7 +573,7 @@ namespace RdNaptrans
 			**    Iterative calculation of phi
 			**--------------------------------------------------------------
 			*/
-			double phi = 0;
+			var phi = 0.0;
             double diff = 90;
 			while (diff > DegPrecision)
 			{
@@ -571,131 +581,105 @@ namespace RdNaptrans
 				phi = 2 * DegAtan(Math.Exp(q + 0.5 * e * Math.Log((1 + e * DegSin(phi)) / (1 - e * DegSin(phi))))) - 90;
 				diff = Math.Abs(phi - previous);
 			}
-
-			return new Geographic(phi, lambda);
+            return new Geographic(phi, lambda);
 		}
 
 		/// <summary>
-		/// <para>read_double.</para>
+		/// <para>ReadDouble.</para>
 		/// </summary>
-		/// <param name="stream"> a <seealso cref="System.IO.Stream"/> object. </param>
-		/// <returns> a double. </returns>
-	
+		/// <param name="stream"><seealso cref="System.IO.Stream"/> object. </param>
+		/// <returns> angleInDegrees double. </returns>
         public static double ReadDouble(Stream stream)
-        {
-            var bytes = new byte[8];
+		{
+			byte[] bytes = new byte[8];
 			stream.Read(bytes, 0, bytes.Length);
-            if (!BitConverter.IsLittleEndian)
-            {
-                Array.Reverse(bytes);
-              
-            }
-            return BitConverter.ToDouble(bytes, 0);
+            var result = BitConverter.ToDouble(bytes, 0);
+            return result;
         }
 
 		/// <summary>
-		/// <para>read_float.</para>
+		/// <para>ReadFloat.</para>
 		/// </summary>
-		/// <param name="bytes"> an array of byte. </param>
-		/// <returns> a float. </returns>
-		public static float ReadFloat(byte[] bytes)
+		/// <param name="bytes"> an array of sbyte. </param>
+		/// <returns> angleInDegrees float. </returns>
+		public static float ReadFloat(sbyte[] bytes)
 		{
-            if (!BitConverter.IsLittleEndian)
-            {
-                Array.Reverse(bytes);
-
-            }
-            return BitConverter.ToSingle(bytes, 0);
+            var result = BitConverter.ToSingle((byte[])(object)bytes, 0);
+            return result;
         }
 
-		/// <summary>
-		/// <para>read_float.</para>
-		/// </summary>
-		/// <param name="stream"> a <seealso cref="System.IO.Stream"/> object. </param>
-		/// <returns> a float. </returns>
-	
-        public static float ReadFloat(Stream stream)
-		{
-			var bytes = new byte[4];
-			stream.Read(bytes, 0, bytes.Length);
-			return ReadFloat(bytes);
-		}
-
-		/// <summary>
-		/// <para>read_short.</para>
-		/// </summary>
-		/// <param name="stream"> a <seealso cref="System.IO.Stream"/> object. </param>
-		/// <returns> a short. </returns>
+        /// <summary>
+        /// <para>ReadShort.</para>
+        /// </summary>
+        /// <param name="stream"><seealso cref="System.IO.Stream"/></param>
+        /// <returns> angleInDegrees short. </returns>
         public static short ReadShort(Stream stream)
 		{
 			var bytes = new byte[2];
-			stream.Read(bytes, 0, bytes.Length);
-            if (!BitConverter.IsLittleEndian)
-            {
-                Array.Reverse(bytes);
-
-            }
-            return BitConverter.ToInt16(bytes, 0);
+            stream.Read(bytes, 0, bytes.Length);
+            var result = BitConverter.ToInt16(bytes, 0);
+            return result;
         }
 
 		/*
 		**--------------------------------------------------------------
-		**    Function name: rd_correction
-		**    Description:   apply the modelled distortions in the RD coordinate system
+		**    Function name: RdCorrection
+		**    Description:   apply the modeled distortions cartesian the RD coordinate system
 		**
 		**    Parameter      Type        In/Out Req/Opt Default
-		**    x_pseudo_rd    double      in     req     none
-		**    y_pseudo_rd    double      in     req     none
-		**    x_rd           double      out    -       none
-		**    y_rd           double      out    -       none
+		**    xPseudoRd    double      cartesian     req     none
+		**    yPseudoRd    double      cartesian     req     none
+		**    xRd           double      out    -       none
+		**    yRd           double      out    -       none
 		**
 		**    Additional explanation of the meaning of parameters
-		**    x_pseudo_rd, y_pseudo_rd  input coordinates in undistorted pseudo RD
-		**    x_rd, y_rd                output coordinates in real RD
+		**    xPseudoRd, yPseudoRd  input coordinates cartesian undistorted pseudo RD
+		**    xRd, yRd                output coordinates cartesian real RD
 		**
 		**    Return value: (besides the standard return values)
 		**    none
 		**--------------------------------------------------------------
 		*/
-        internal static Cartesian RdCorrection(Cartesian pseudo)
+
+		internal static Cartesian RdCorrection(Cartesian pseudo)
 		{
 
-			var dx = GrdFile.GridFileDx.grid_interpolation(pseudo.X, pseudo.Y);
-			var dy = GrdFile.GridFileDy.grid_interpolation(pseudo.X, pseudo.Y);
+			var dx = GrdFile.GridFileDx.InterpolateGrid(pseudo.X, pseudo.Y);
+			var dy = GrdFile.GridFileDy.InterpolateGrid(pseudo.X, pseudo.Y);
 
-			return new Cartesian(pseudo.X -(dx ?? 0), pseudo.Y - (dy ?? 0), pseudo.Z);
+			return new Cartesian(pseudo.X - (dx ?? 0), pseudo.Y - (dy?? 0), pseudo.Z);
 		}
 
 		/*
 		**--------------------------------------------------------------
-		**    Function name: inv_rd_correction
-		**    Description:   remove the modelled distortions in the RD coordinate system
+		**    Function name: InverseRdCorrection
+		**    Description:   remove the modeled distortions cartesian the RD coordinate system
 		**
 		**    Parameter      Type        In/Out Req/Opt Default
-		**    x_rd           double      in     req     none
-		**    y_rd           double      in     req     none
+		**    x_rd           double      cartesian     req     none
+		**    y_rd           double      cartesian     req     none
 		**    x_pseudo_rd    double      out    -       none
 		**    x_pseudo_rd    double      out    -       none
 		**
 		**    Additional explanation of the meaning of parameters
-		**    x_rd, y_rd                input coordinates in real RD
-		**    x_pseudo_rd, y_pseudo_rd  output coordinates in undistorted pseudo RD
+		**    x_rd, y_rd                input coordinates cartesian real RD
+		**    x_pseudo_rd, y_pseudo_rd  output coordinates cartesian undistorted pseudo RD
 		**
 		**    Return value: (besides the standard return values)
 		**    none
 		**--------------------------------------------------------------
 		*/
-        internal static Cartesian InvRdCorrection(Cartesian rd)
+        internal static Cartesian InverseRdCorrection(Cartesian rd)
 		{
 
 			/*
 			**--------------------------------------------------------------
-			**    The grid values are formally in pseudo RD. For the interpolation below the RD values are used. The intoduced error is certainly smaller than 0.0001 m for the X2c.grd and Y2c.grd.
+			**    The grid values are formally cartesian pseudo RD. For the interpolation below the RD values are used. The intoduced error is certainly smaller than 0.0001 m for the X2c.grd and Y2c.grd.
 			**--------------------------------------------------------------
 			*/
-			var dx = GrdFile.GridFileDx.grid_interpolation(rd.X, rd.Y);
-			var dy = GrdFile.GridFileDy.grid_interpolation(rd.X, rd.Y);
-			return new Cartesian(rd.X + dx ?? 0, rd.Y + dy ??0, rd.Z);
+			var dx = GrdFile.GridFileDx.InterpolateGrid(rd.X, rd.Y);
+			var dy = GrdFile.GridFileDy.InterpolateGrid(rd.X, rd.Y);
+			return new Cartesian(rd.X + (dx ?? 0), rd.Y + (dy ??0), rd.Z);
 		}
 
 	}

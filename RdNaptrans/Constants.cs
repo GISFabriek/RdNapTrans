@@ -1,9 +1,4 @@
-﻿/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-namespace RdNaptrans
+﻿namespace RdNapTrans
 {
 
 	/// <summary>
@@ -14,14 +9,14 @@ namespace RdNaptrans
 	/// </summary>
 	public class Constants
 	{
-		/*
+        /*
 		**--------------------------------------------------------------
 		**    Static data declarations
 		**    Mathematical constant pi = 3.14...
 		**--------------------------------------------------------------
 		*/
-		//static final double PI = Math.PI;
-		/*
+        //static final double PI = Math.PI;
+        /*
 		**--------------------------------------------------------------
 		**    Continuation of static data declarations
 		**    Geographic NL-Bessel coordinates of Amersfoort (pivot point and projection base point)
@@ -33,16 +28,16 @@ namespace RdNaptrans
 		**        HTW, "Handleiding voor de Technische Werkzaamheden van het Kadaster". Apeldoorn: Kadaster, 1996.
 		**--------------------------------------------------------------
 		*/
-		/// <summary>
-		/// Constant <code>PHI_AMERSFOORT_BESSEL=52.0+ 9.0/60.0+22.178/3600.0</code> </summary>
-		public const double PhiAmersfoortBessel = 52.0 + 9.0 / 60.0 + 22.178 / 3600.0;
-		/// <summary>
-		/// Constant <code>LAMBDA_AMERSFOORT_BESSEL=5.0+23.0/60.0+15.500/3600.0</code> </summary>
-		public const double LambdaAmersfoortBessel = 5.0 + 23.0 / 60.0 + 15.500 / 3600.0;
-		/// <summary>
-		/// Constant <code>H_AMERSFOORT_BESSEL=0.0</code> </summary>
-		public const double HAmersfoortBessel = 0.0;
-		/*
+        /// <summary>
+        /// Constant <code>PhiAmersfoortBessel=52.0+ 9.0/60.0+22.178/3600.0</code> </summary>
+        public const double PhiAmersfoortBessel = 52.0 + 9.0 / 60.0 + 22.178 / 3600.0;
+        /// <summary>
+        /// Constant <code>LambdaAmersfoortBessel=5.0+23.0/60.0+15.500/3600.0</code> </summary>
+        public const double LambdaAmersfoortBessel = 5.0 + 23.0 / 60.0 + 15.500 / 3600.0;
+        /// <summary>
+        /// Constant <code>HAmersfoortBessel=0.0</code> </summary>
+        public const double HAmersfoortBessel = 0.0;
+        /*
 		**--------------------------------------------------------------
 		**    Continuation of static data declarations
 		**    Parameters of ellipsoids Bessel1841 and GRS80
@@ -51,19 +46,19 @@ namespace RdNaptrans
 		**    Source of constants: HTW, "Handleiding voor de Technische Werkzaamheden van het Kadaster". Apeldoorn: Kadaster, 1996.
 		**--------------------------------------------------------------
 		*/
-		/// <summary>
-		/// Constant <code>A_BESSEL=6377397.155</code> </summary>
-		public const double ABessel = 6377397.155;
-		/// <summary>
-		/// Constant <code>INV_F_BESSEL=299.1528128</code> </summary>
-		public const double InvFBessel = 299.1528128;
-		/// <summary>
-		/// Constant <code>A_ETRS=6378137</code> </summary>
-		public const double AEtrs = 6378137;
-		/// <summary>
-		/// Constant <code>INV_F_ETRS=298.257222101</code> </summary>
-		public const double InvFEtrs = 298.257222101;
-		/*
+        /// <summary>
+        /// Constant <code>ABessel=6377397.155</code> </summary>
+        public const double ABessel = 6377397.155;
+        /// <summary>
+        /// Constant <code>InvFBessel=299.1528128</code> </summary>
+        public const double InvFBessel = 299.1528128;
+        /// <summary>
+        /// Constant <code>AEtrs=6378137</code> </summary>
+        public const double AEtrs = 6378137;
+        /// <summary>
+        /// Constant <code>InvFEtrs=298.257222101</code> </summary>
+        public const double InvFEtrs = 298.257222101;
+        /*
 		**--------------------------------------------------------------
 		**    Continuation of static data declarations
 		**    Transformation parameters relative to pivot point Amersfoort. Note: Do NOT confuse with parameters for the center of the ellipsoid!
@@ -77,50 +72,50 @@ namespace RdNaptrans
 		**    Source of constants: A. de Bruijne, J. van Buren, A. K\u0148sters and H. van der Marel, "De geodetische referentiestelsels van Nederland; Definitie en vastlegging van ETRS89, RD en NAP en hun onderlinge relatie". Delft: Nederlandse Commissie voor Geodesie (NCG), to be published in 2005.
 		**--------------------------------------------------------------
 		*/
-		/// <summary>
-		/// Constant <code>TX_BESSEL_ETRS=593.0248</code> </summary>
-		public const double TxBesselEtrs = 593.0248;
-		/// <summary>
-		/// Constant <code>TY_BESSEL_ETRS=25.9984</code> </summary>
-		public const double TyBesselEtrs = 25.9984;
-		/// <summary>
-		/// Constant <code>TZ_BESSEL_ETRS=478.7459</code> </summary>
-		public const double TzBesselEtrs = 478.7459;
-		/// <summary>
-		/// Constant <code>ALPHA_BESSEL_ETRS=1.9342e-6</code> </summary>
-		public const double AlphaBesselEtrs = 1.9342e-6;
-		/// <summary>
-		/// Constant <code>BETA_BESSEL_ETRS=-1.6677e-6</code> </summary>
-		public const double BetaBesselEtrs = -1.6677e-6;
-		/// <summary>
-		/// Constant <code>GAMMA_BESSEL_ETRS=9.1019e-6</code> </summary>
-		public const double GammaBesselEtrs = 9.1019e-6;
-		/// <summary>
-		/// Constant <code>DELTA_BESSEL_ETRS=4.0725e-6</code> </summary>
-		public const double DeltaBesselEtrs = 4.0725e-6;
+        /// <summary>
+        /// Constant <code>TxBesselEtrs=593.0248</code> </summary>
+        public const double TxBesselEtrs = 593.0248;
+        /// <summary>
+        /// Constant <code>TyBesselEtrs=25.9984</code> </summary>
+        public const double TyBesselEtrs = 25.9984;
+        /// <summary>
+        /// Constant <code>TzBesselEtrs=478.7459</code> </summary>
+        public const double TzBesselEtrs = 478.7459;
+        /// <summary>
+        /// Constant <code>AlphaBesselEtrs=1.9342e-6</code> </summary>
+        public const double AlphaBesselEtrs = 1.9342e-6;
+        /// <summary>
+        /// Constant <code>BetaBesselEtrs=-1.6677e-6</code> </summary>
+        public const double BetaBesselEtrs = -1.6677e-6;
+        /// <summary>
+        /// Constant <code>GammaBesselEtrs=9.1019e-6</code> </summary>
+        public const double GammaBesselEtrs = 9.1019e-6;
+        /// <summary>
+        /// Constant <code>DeltaBesselEtrs=4.0725e-6</code> </summary>
+        public const double DeltaBesselEtrs = 4.0725e-6;
 
-		/// <summary>
-		/// Constant <code>TX_ETRS_BESSEL=-593.0248</code> </summary>
-		public const double TxEtrsBessel = -593.0248;
-		/// <summary>
-		/// Constant <code>TY_ETRS_BESSEL=-25.9984</code> </summary>
-		public const double TyEtrsBessel = -25.9984;
-		/// <summary>
-		/// Constant <code>TZ_ETRS_BESSEL=-478.7459</code> </summary>
-		public const double TzEtrsBessel = -478.7459;
-		/// <summary>
-		/// Constant <code>ALPHA_ETRS_BESSEL=-1.9342e-6</code> </summary>
-		public const double AlphaEtrsBessel = -1.9342e-6;
-		/// <summary>
-		/// Constant <code>BETA_ETRS_BESSEL=1.6677e-6</code> </summary>
-		public const double BetaEtrsBessel = 1.6677e-6;
-		/// <summary>
-		/// Constant <code>GAMMA_ETRS_BESSEL=-9.1019e-6</code> </summary>
-		public const double GammaEtrsBessel = -9.1019e-6;
+        /// <summary>
+        /// Constant <code>TxEtrsBessel=-593.0248</code> </summary>
+        public const double TxEtrsBessel = -593.0248;
+        /// <summary>
+        /// Constant <code>TyEtrsBessel=-25.9984</code> </summary>
+        public const double TyEtrsBessel = -25.9984;
+        /// <summary>
+        /// Constant <code>TzEtrsBessel=-478.7459</code> </summary>
+        public const double TzEtrsBessel = -478.7459;
+        /// <summary>
+        /// Constant <code>AlphaEtrsBessel=-1.9342e-6</code> </summary>
+        public const double AlphaEtrsBessel = -1.9342e-6;
+        /// <summary>
+        /// Constant <code>BetaEtrsBessel=1.6677e-6</code> </summary>
+        public const double BetaEtrsBessel = 1.6677e-6;
+        /// <summary>
+        /// Constant <code>GammaEtrsBessel=-9.1019e-6</code> </summary>
+        public const double GammaEtrsBessel = -9.1019e-6;
 		/// <summary>
 		/// Constant <code>DELTA_ETRS_BESSEL=-4.0725e-6</code> </summary>
 		public const double DeltaEtrsBessel = -4.0725e-6;
-		/*
+        /*
 		**--------------------------------------------------------------
 		**    Continuation of static data declarations
 		**    Parameters of RD projection
@@ -133,37 +128,37 @@ namespace RdNaptrans
 		**        G. Strang van Hees, "Globale en lokale geodetische systemen". Delft: Nederlandse Commissie voor Geodesie (NCG), 1997.
 		**--------------------------------------------------------------
 		*/
-		/// <summary>
-		/// Constant <code>SCALE_RD=0.9999079</code> </summary>
-		public const double ScaleRd = 0.9999079;
-		/// <summary>
-		/// Constant <code>X_AMERSFOORT_RD=155000</code> </summary>
-		public const double XAmersfoortRd = 155000;
-		/// <summary>
-		/// Constant <code>Y_AMERSFOORT_RD=463000</code> </summary>
-		public const double YAmersfoortRd = 463000;
+        /// <summary>
+        /// Constant <code>ScaleRd=0.9999079</code> </summary>
+        public const double ScaleRd = 0.9999079;
+        /// <summary>
+        /// Constant <code>XAmersfoortRd=155000</code> </summary>
+        public const double XAmersfoortRd = 155000;
+        /// <summary>
+        /// Constant <code>YAmersfoortRd=463000</code> </summary>
+        public const double YAmersfoortRd = 463000;
 
-		/*
+        /*
 		**--------------------------------------------------------------
 		**    Continuation of static data declarations
 		**    Precision parameters for iterations (respectively in meters and degrees)
 		**--------------------------------------------------------------
 		*/
-		/// <summary>
-		/// Constant <code>PRECISION=0.0001</code> </summary>
-		public const double Precision = 0.0001;
-		/// <summary>
-		/// Constant <code>DEG_PRECISION=PRECISION/40e6*360</code> </summary>
-		public static readonly double DegPrecision = Precision / 40e6 * 360;
-		/*
+        /// <summary>
+        /// Constant <code>Precision=0.0001</code> </summary>
+        public const double Precision = 0.0001;
+        /// <summary>
+        /// Constant <code>DegPrecision=PRECISION/40e6*360</code> </summary>
+        public static readonly double DegPrecision = Precision / 40e6 * 360;
+        /*
 		**--------------------------------------------------------------
 		**    Continuation of static data declarations
 		**    Mean difference between NAP and ellipsoidal Bessel height. This is only used for getting from x, y in RD to phi, lambda in ETRS89.
 		**--------------------------------------------------------------
 		*/
-		/// <summary>
-		/// Constant <code>MEAN_GEOID_HEIGHT_BESSEL=0.0</code> </summary>
-		public const double MeanGeoidHeightBessel = 0.0;
+        /// <summary>
+        /// Constant <code>MeanGeoidHeightBessel=0.0</code> </summary>
+        public const double MeanGeoidHeightBessel = 0.0;
 	}
 
 }

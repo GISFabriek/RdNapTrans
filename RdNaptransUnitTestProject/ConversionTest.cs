@@ -1,24 +1,19 @@
+using RdNapTrans;
 using Xunit;
 
 namespace RdNaptransUnitTestProject
 {
     using System;
-    using RdNaptrans.Value;
+ 
     using System.Collections.Generic;
 
     public class ConversionTest
     {
         private readonly List<(string name, Geographic geographic, Cartesian cartesian)> _testItems;
-        //public static double MaxDeltaRd = 0.001;
-        //public static double MaxDeltaAngle = 0.00000001;
-        //public static double MaxDeltaH = 0.001;
+        public static double MaxDeltaRd = 0.001;
+        public static double MaxDeltaAngle = 0.00000001;
+        public static double MaxDeltaH = 0.001;
 
-        public static double MaxDeltaRd = 0.1;
-        public static double MaxDeltaAngle = 0.00001;
-        public static double MaxDeltaH = 0.8;
-
-
-        /// <exclude />
         public ConversionTest()
         {
             _testItems = new List<(string name, Geographic geographic, Cartesian cartesian)>();
@@ -71,7 +66,7 @@ namespace RdNaptransUnitTestProject
         {
             foreach (var item in _testItems)
             {
-                var result = RdNaptrans.Transform.Etrs2Rdnap(item.geographic);
+                var result = Transformer.Etrs2Rdnap(item.geographic);
                 Assert.True(IsWithinRange(result.X, item.cartesian.X, MaxDeltaRd));
                 Assert.True(IsWithinRange(result.Y, item.cartesian.Y, MaxDeltaRd));
                 Assert.True(IsWithinRange(result.Z, item.cartesian.Z, MaxDeltaH));
@@ -83,7 +78,7 @@ namespace RdNaptransUnitTestProject
         {
             foreach (var item in _testItems)
             {
-                var result = RdNaptrans.Transform.Rdnap2Etrs(item.cartesian);
+                var result = Transformer.Rdnap2Etrs(item.cartesian);
                 Assert.True(IsWithinRange(result.Lambda, item.geographic.Lambda, MaxDeltaAngle));
                 Assert.True(IsWithinRange(result.Phi, item.geographic.Phi, MaxDeltaAngle));
                 Assert.True(IsWithinRange(result.H, item.geographic.H, MaxDeltaH));
