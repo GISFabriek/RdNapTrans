@@ -1,49 +1,75 @@
-﻿namespace RdNapTrans
+﻿// ***********************************************************************
+// Assembly         : RdNapTrans
+// Author           : Willem A. Ligtendag, De GISFabriek
+// Created          : 07-02-2019
+//
+// Last Modified By : Willem A. Ligtendag, De GISFabriek
+// Last Modified On : 07-02-2019
+// ***********************************************************************
+// C# PORT from https://github.com/PDOK/rdnaptrans-java
+// ***********************************************************************
+namespace RdNapTrans
 {
-	/// <summary>
-	/// <para>Cartesian class.</para>
-	/// 
-	/// @author raymond
-	/// @version $Id: $Id
-	/// </summary>
-	public class Cartesian
+
+    /// <summary>
+    /// Wraps a Cartesian value with 3 dimensions
+    /// </summary>
+    public class Cartesian
 	{
-		public readonly double X;
-		public readonly double Y;
-		public readonly double Z;
 
         /// <summary>
-        /// <para>Constructor for Cartesian.</para>
+        /// Constructor for Cartesian.
         /// </summary>
-        /// <param name="x"> X coordinate. </param>
-        /// <param name="y"> Y coordinate. </param>
-        /// <param name="z"> Z coordinate. </param>
+        /// <param name="x">X coordinate.</param>
+        /// <param name="y">Y coordinate.</param>
+        /// <param name="z">Z coordinate.</param>
         public Cartesian(double x, double y, double z)
-		{
-			X = x;
+        {
+            X = x;
 			Y = y;
 			Z = z;
 		}
 
-		/// <summary>
-		/// <para>Constructor for Cartesian.</para>
-		/// </summary>
-		/// <param name="x"> X coordinate. </param>
-		/// <param name="y"> Y coordinate. </param>
-		public Cartesian(double x, double y) : this(x, y, 0)
+        /// <summary>
+        /// Constructor for Cartesian.
+        /// </summary>
+        /// <param name="x">X coordinate.</param>
+        /// <param name="y">Y coordinate.</param>
+        public Cartesian(double x, double y) : this(x, y, 0)
 		{
 		}
 
         /// <summary>
-        /// <para>withZ.</para>
+        /// Gets the X Coordinate.
         /// </summary>
-        /// <param name="z"> Z coordinate. </param>
-        /// <returns> a <seealso cref="Cartesian"/> object. </returns>
+        /// <value>The X Coordinate.</value>
+        public double X { get; }
+        /// <summary>
+        /// Gets the Y Coordinate.
+        /// </summary>
+        /// <value>The Y Coordinate.</value>
+        public double Y { get; }
+        /// <summary>
+        /// Gets the Z Coordinate.
+        /// </summary>
+        /// <value>The Z Coordinate.</value>
+        public double Z { get; }
+
+
+        /// <summary>
+        /// Creates a copy of the existing instance and adds a Z Coordinate to it.
+        /// </summary>
+        /// <param name="z">The Z Coordinate to be added.</param>
+        /// <returns>Cartesian.</returns>
         public virtual Cartesian WithZ(double z)
 		{
 			return new Cartesian(X,Y, z);
 		}
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
             return $"X: {X}; Y: {Y}; Z {Z}";

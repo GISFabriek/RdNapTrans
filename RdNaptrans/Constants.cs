@@ -1,24 +1,25 @@
-﻿namespace RdNapTrans
+﻿// ***********************************************************************
+// Assembly         : RdNapTrans
+// Author           : Willem A. Ligtendag, De GISFabriek
+// Created          : 06-19-2019
+//
+// Last Modified By : Willem A. Ligtendag, De GISFabriek
+// Last Modified On : 07-02-2019
+// ***********************************************************************
+// C# PORT from https://github.com/PDOK/rdnaptrans-java
+// ***********************************************************************
+namespace RdNapTrans
 {
 
-	/// <summary>
-	/// <para>Constants class.</para>
-	/// 
-	/// @author raymond
-	/// @version $Id: $Id
-	/// </summary>
-	public class Constants
+    /// <summary>
+    /// Class Constants.
+    /// </summary>
+    public static class Constants
 	{
         /*
 		**--------------------------------------------------------------
 		**    Static data declarations
-		**    Mathematical constant pi = 3.14...
-		**--------------------------------------------------------------
-		*/
-        //static final double PI = Math.PI;
-        /*
-		**--------------------------------------------------------------
-		**    Continuation of static data declarations
+		**
 		**    Geographic NL-Bessel coordinates of Amersfoort (pivot point and projection base point)
 		**        phi     latitude in decimal degrees
 		**        lambda  longitude in decimal degrees
@@ -29,13 +30,16 @@
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Constant <code>PhiAmersfoortBessel=52.0+ 9.0/60.0+22.178/3600.0</code> </summary>
+        /// Constant <code>PhiAmersfoortBessel=52.0+ 9.0/60.0+22.178/3600.0</code>
+        /// </summary>
         public const double PhiAmersfoortBessel = 52.0 + 9.0 / 60.0 + 22.178 / 3600.0;
         /// <summary>
-        /// Constant <code>LambdaAmersfoortBessel=5.0+23.0/60.0+15.500/3600.0</code> </summary>
+        /// Constant <code>LambdaAmersfoortBessel=5.0+23.0/60.0+15.500/3600.0</code>
+        /// </summary>
         public const double LambdaAmersfoortBessel = 5.0 + 23.0 / 60.0 + 15.500 / 3600.0;
         /// <summary>
-        /// Constant <code>HAmersfoortBessel=0.0</code> </summary>
+        /// Constant <code>HAmersfoortBessel=0.0</code>
+        /// </summary>
         public const double HAmersfoortBessel = 0.0;
         /*
 		**--------------------------------------------------------------
@@ -47,16 +51,20 @@
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Constant <code>ABessel=6377397.155</code> </summary>
+        /// Constant <code>ABessel=6377397.155</code>
+        /// </summary>
         public const double ABessel = 6377397.155;
         /// <summary>
-        /// Constant <code>InvFBessel=299.1528128</code> </summary>
+        /// Constant <code>InvFBessel=299.1528128</code>
+        /// </summary>
         public const double InvFBessel = 299.1528128;
         /// <summary>
-        /// Constant <code>AEtrs=6378137</code> </summary>
+        /// Constant <code>AEtrs=6378137</code>
+        /// </summary>
         public const double AEtrs = 6378137;
         /// <summary>
-        /// Constant <code>InvFEtrs=298.257222101</code> </summary>
+        /// Constant <code>InvFEtrs=298.257222101</code>
+        /// </summary>
         public const double InvFEtrs = 298.257222101;
         /*
 		**--------------------------------------------------------------
@@ -73,48 +81,62 @@
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Constant <code>TxBesselEtrs=593.0248</code> </summary>
+        /// Constant <code>TxBesselEtrs=593.0248</code>
+        /// </summary>
         public const double TxBesselEtrs = 593.0248;
         /// <summary>
-        /// Constant <code>TyBesselEtrs=25.9984</code> </summary>
+        /// Constant <code>TyBesselEtrs=25.9984</code>
+        /// </summary>
         public const double TyBesselEtrs = 25.9984;
         /// <summary>
-        /// Constant <code>TzBesselEtrs=478.7459</code> </summary>
+        /// Constant <code>TzBesselEtrs=478.7459</code>
+        /// </summary>
         public const double TzBesselEtrs = 478.7459;
         /// <summary>
-        /// Constant <code>AlphaBesselEtrs=1.9342e-6</code> </summary>
+        /// Constant <code>AlphaBesselEtrs=1.9342e-6</code>
+        /// </summary>
         public const double AlphaBesselEtrs = 1.9342e-6;
         /// <summary>
-        /// Constant <code>BetaBesselEtrs=-1.6677e-6</code> </summary>
+        /// Constant <code>BetaBesselEtrs=-1.6677e-6</code>
+        /// </summary>
         public const double BetaBesselEtrs = -1.6677e-6;
         /// <summary>
-        /// Constant <code>GammaBesselEtrs=9.1019e-6</code> </summary>
+        /// Constant <code>GammaBesselEtrs=9.1019e-6</code>
+        /// </summary>
         public const double GammaBesselEtrs = 9.1019e-6;
         /// <summary>
-        /// Constant <code>DeltaBesselEtrs=4.0725e-6</code> </summary>
+        /// Constant <code>DeltaBesselEtrs=4.0725e-6</code>
+        /// </summary>
         public const double DeltaBesselEtrs = 4.0725e-6;
 
         /// <summary>
-        /// Constant <code>TxEtrsBessel=-593.0248</code> </summary>
+        /// Constant <code>TxEtrsBessel=-593.0248</code>
+        /// </summary>
         public const double TxEtrsBessel = -593.0248;
         /// <summary>
-        /// Constant <code>TyEtrsBessel=-25.9984</code> </summary>
+        /// Constant <code>TyEtrsBessel=-25.9984</code>
+        /// </summary>
         public const double TyEtrsBessel = -25.9984;
         /// <summary>
-        /// Constant <code>TzEtrsBessel=-478.7459</code> </summary>
+        /// Constant <code>TzEtrsBessel=-478.7459</code>
+        /// </summary>
         public const double TzEtrsBessel = -478.7459;
         /// <summary>
-        /// Constant <code>AlphaEtrsBessel=-1.9342e-6</code> </summary>
+        /// Constant <code>AlphaEtrsBessel=-1.9342e-6</code>
+        /// </summary>
         public const double AlphaEtrsBessel = -1.9342e-6;
         /// <summary>
-        /// Constant <code>BetaEtrsBessel=1.6677e-6</code> </summary>
+        /// Constant <code>BetaEtrsBessel=1.6677e-6</code>
+        /// </summary>
         public const double BetaEtrsBessel = 1.6677e-6;
         /// <summary>
-        /// Constant <code>GammaEtrsBessel=-9.1019e-6</code> </summary>
+        /// Constant <code>GammaEtrsBessel=-9.1019e-6</code>
+        /// </summary>
         public const double GammaEtrsBessel = -9.1019e-6;
-		/// <summary>
-		/// Constant <code>DELTA_ETRS_BESSEL=-4.0725e-6</code> </summary>
-		public const double DeltaEtrsBessel = -4.0725e-6;
+        /// <summary>
+        /// Constant <code>DELTA_ETRS_BESSEL=-4.0725e-6</code>
+        /// </summary>
+        public const double DeltaEtrsBessel = -4.0725e-6;
         /*
 		**--------------------------------------------------------------
 		**    Continuation of static data declarations
@@ -129,13 +151,16 @@
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Constant <code>ScaleRd=0.9999079</code> </summary>
+        /// Constant <code>ScaleRd=0.9999079</code>
+        /// </summary>
         public const double ScaleRd = 0.9999079;
         /// <summary>
-        /// Constant <code>XAmersfoortRd=155000</code> </summary>
+        /// Constant <code>XAmersfoortRd=155000</code>
+        /// </summary>
         public const double XAmersfoortRd = 155000;
         /// <summary>
-        /// Constant <code>YAmersfoortRd=463000</code> </summary>
+        /// Constant <code>YAmersfoortRd=463000</code>
+        /// </summary>
         public const double YAmersfoortRd = 463000;
 
         /*
@@ -145,10 +170,12 @@
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Constant <code>Precision=0.0001</code> </summary>
+        /// Constant <code>Precision=0.0001</code>
+        /// </summary>
         public const double Precision = 0.0001;
         /// <summary>
-        /// Constant <code>DegPrecision=PRECISION/40e6*360</code> </summary>
+        /// Constant <code>DegPrecision=PRECISION/40e6*360</code>
+        /// </summary>
         public static readonly double DegPrecision = Precision / 40e6 * 360;
         /*
 		**--------------------------------------------------------------
@@ -157,7 +184,8 @@
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// Constant <code>MeanGeoidHeightBessel=0.0</code> </summary>
+        /// Constant <code>MeanGeoidHeightBessel=0.0</code>
+        /// </summary>
         public const double MeanGeoidHeightBessel = 0.0;
 	}
 

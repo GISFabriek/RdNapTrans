@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RdNapTrans
+// Author           : Willem A. Ligtendag, De GISFabriek
+// Created          : 06-19-2019
+//
+// Last Modified By : Willem A. Ligtendag, De GISFabriek
+// Last Modified On : 07-02-2019
+// ***********************************************************************
+// C# PORT from https://github.com/PDOK/rdnaptrans-java
+// ***********************************************************************
+using System;
 using System.IO;
 
 namespace RdNapTrans
@@ -6,20 +16,17 @@ namespace RdNapTrans
     using static Constants;
 
     /// <summary>
-	/// <para>Helpers class.</para>
-	/// 
-	/// @author raymond
-	/// @version $Id: $Id
-	/// </summary>
-	public class Helpers
+    /// Class Helpers.
+    /// </summary>
+    public class Helpers
 	{
-		/*
+        /*
 		**--------------------------------------------------------------
 		**    Functions
 		**--------------------------------------------------------------
 		*/
 
-		/*
+        /*
 		**--------------------------------------------------------------
 		**    Function name: DegSin
 		**    Description:   sine for angles cartesian degrees
@@ -34,12 +41,17 @@ namespace RdNapTrans
 		**    sin(angleInDegrees)
 		**--------------------------------------------------------------
 		*/
-		internal static double DegSin(double angleInDegrees)
+        /// <summary>
+        /// Degs the sin.
+        /// </summary>
+        /// <param name="angleInDegrees">The angle in degrees.</param>
+        /// <returns>System.Double.</returns>
+        internal static double DegSin(double angleInDegrees)
 		{
 			return Math.Sin(angleInDegrees / 180.0 * Math.PI);
 		}
 
-		/*
+        /*
 		**--------------------------------------------------------------
 		**    Function name: DegCos
 		**    Description:   cosine for angles cartesian degrees
@@ -54,12 +66,17 @@ namespace RdNapTrans
 		**    cos(angleInDegrees)
 		**--------------------------------------------------------------
 		*/
-		internal static double DegCos(double angleInDegrees)
+        /// <summary>
+        /// Degs the cos.
+        /// </summary>
+        /// <param name="angleInDegrees">The angle in degrees.</param>
+        /// <returns>System.Double.</returns>
+        internal static double DegCos(double angleInDegrees)
 		{
 			return Math.Cos(angleInDegrees / 180.0 * Math.PI);
 		}
 
-		/*
+        /*
 		**--------------------------------------------------------------
 		**    Function name: DegTan
 		**    Description:   tangent for angles cartesian degrees
@@ -74,12 +91,17 @@ namespace RdNapTrans
 		**    tan(angleInDegrees)
 		**--------------------------------------------------------------
 		*/
-		internal static double DegTan(double angleInDegrees)
+        /// <summary>
+        /// Degs the tan.
+        /// </summary>
+        /// <param name="angleInDegrees">The angle in degrees.</param>
+        /// <returns>System.Double.</returns>
+        internal static double DegTan(double angleInDegrees)
 		{
 			return Math.Tan(angleInDegrees / 180.0 * Math.PI);
 		}
 
-		/*
+        /*
 		**--------------------------------------------------------------
 		**    Function name: DegAsin
 		**    Description:   inverse sine for angles cartesian degrees
@@ -94,12 +116,17 @@ namespace RdNapTrans
 		**    asin(angleInDegrees)
 		**--------------------------------------------------------------
 		*/
-		internal static double DegAsin(double angleInDegrees)
+        /// <summary>
+        /// Degs the asin.
+        /// </summary>
+        /// <param name="angleInDegrees">The angle in degrees.</param>
+        /// <returns>System.Double.</returns>
+        internal static double DegAsin(double angleInDegrees)
 		{
 			return (Math.Asin(angleInDegrees) * 180.0 / Math.PI);
 		}
 
-		/*
+        /*
 		**--------------------------------------------------------------
 		**    Function name: DegAtan
 		**    Description:   inverse tangent for angles cartesian degrees
@@ -114,12 +141,17 @@ namespace RdNapTrans
 		**    atan(angleInDegrees)
 		**--------------------------------------------------------------
 		*/
-		internal static double DegAtan(double angleInDegrees)
+        /// <summary>
+        /// Degs the atan.
+        /// </summary>
+        /// <param name="angleInDegrees">The angle in degrees.</param>
+        /// <returns>System.Double.</returns>
+        internal static double DegAtan(double angleInDegrees)
 		{
 			return (Math.Atan(angleInDegrees) * 180.0 / Math.PI);
 		}
 
-		/*
+        /*
 		**--------------------------------------------------------------
 		**    Function name: Atanh
 		**    Description:   inverse hyperbolic tangent
@@ -134,7 +166,12 @@ namespace RdNapTrans
 		**    Atanh(angleInDegrees)
 		**--------------------------------------------------------------
 		*/
-		internal static double Atanh(double angleInDegrees)
+        /// <summary>
+        /// Atanhes the specified angle in degrees.
+        /// </summary>
+        /// <param name="angleInDegrees">The angle in degrees.</param>
+        /// <returns>System.Double.</returns>
+        internal static double Atanh(double angleInDegrees)
 		{
 			return (0.5 * Math.Log((1.0 + angleInDegrees) / (1.0 - angleInDegrees)));
 		}
@@ -167,6 +204,13 @@ namespace RdNapTrans
 		**    none
 		**--------------------------------------------------------------
 		*/
+        /// <summary>
+        /// Geographic2s the cartesian.
+        /// </summary>
+        /// <param name="geographic">The geographic.</param>
+        /// <param name="angleInDegrees">The angle in degrees.</param>
+        /// <param name="inverseFlattening">The inverse flattening.</param>
+        /// <returns>Cartesian.</returns>
         internal static Cartesian Geographic2Cartesian(Geographic geographic, double angleInDegrees, double inverseFlattening)
 		{
 			/*
@@ -221,6 +265,13 @@ namespace RdNapTrans
 		**    none
 		**--------------------------------------------------------------
 		*/
+        /// <summary>
+        /// Cartesian2s the geographic.
+        /// </summary>
+        /// <param name="cartesian">The cartesian.</param>
+        /// <param name="angleInDegrees">The angle in degrees.</param>
+        /// <param name="inverseFlattening">The inverse flattening.</param>
+        /// <returns>Geographic.</returns>
         internal static Geographic Cartesian2Geographic(Cartesian cartesian, double angleInDegrees, double inverseFlattening)
 		{
 			/*
@@ -269,15 +320,15 @@ namespace RdNapTrans
 			return new Geographic(phi, lambda, h);
 		}
 
-		/*
+        /*
 		**--------------------------------------------------------------
 		**    Function name: SimTrans
 		**    Description:   3 dimensional similarity transformation (7 parameters) around another pivot point "angleInDegrees" than the origin
 		**
 		**    Parameter      Type        In/Out Req/Opt Default
-		**    x_in           double      cartesian     req     none
-		**    y_in           double      cartesian     req     none
-		**    z_in           double      cartesian     req     none
+		**    xIn           double      cartesian     req     none
+		**    yIn           double      cartesian     req     none
+		**    zIn           double      cartesian     req     none
 		**    tx             double      cartesian     req     none
 		**    ty             double      cartesian     req     none
 		**    tz             double      cartesian     req     none
@@ -288,12 +339,12 @@ namespace RdNapTrans
 		**    xa             double      cartesian     req     none
 		**    ya             double      cartesian     req     none
 		**    za             double      cartesian     req     none
-		**    x_out          double      out    -       none
-		**    y_out          double      out    -       none
-		**    z_out          double      out    -       none
+		**    xOut          double      out    -       none
+		**    yOut          double      out    -       none
+		**    zOut          double      out    -       none
 		**
 		**    Additional explanation of the meaning of parameters
-		**    x_in, y_in, z_in     input coordinates
+		**    xIn, yIn, zIn     input coordinates
 		**    tx                   translation cartesian direction of x axis
 		**    ty                   translation cartesian direction of y axis
 		**    tz                   translation cartesian direction of z axis
@@ -302,13 +353,24 @@ namespace RdNapTrans
 		**    gamma                rotation around z axis cartesian radials
 		**    delta                scale parameter (scale = 1 + delta)
 		**    xa, ya, za           coordinates of pivot point angleInDegrees (cartesian case of rotation around the center of the ellipsoid these parameters are zero)
-		**    x_out, y_out, z_out  output coordinates
+		**    xOut, yOut, zOut  output coordinates
 		**
 		**    Return value: (besides the standard return values)
 		**    none
 		**--------------------------------------------------------------
 		*/
-		internal static Cartesian SimTrans(Cartesian cartesian, Cartesian translate, double alpha, double beta, double gamma, double delta, Cartesian pivot)
+        /// <summary>
+        /// Sims the trans.
+        /// </summary>
+        /// <param name="cartesian">The cartesian.</param>
+        /// <param name="translate">The translate.</param>
+        /// <param name="alpha">The alpha.</param>
+        /// <param name="beta">The beta.</param>
+        /// <param name="gamma">The gamma.</param>
+        /// <param name="delta">The delta.</param>
+        /// <param name="pivot">The pivot.</param>
+        /// <returns>Cartesian.</returns>
+        internal static Cartesian SimTrans(Cartesian cartesian, Cartesian translate, double alpha, double beta, double gamma, double delta, Cartesian pivot)
 
 		{
 			/*
@@ -340,7 +402,7 @@ namespace RdNapTrans
 			/*
 			**--------------------------------------------------------------
 			**    Calculate the elements of the vector input_point:
-			**    point_2 = input_point - pivot_point
+			**    point2 = inputPoint - pivotPoint
 			**--------------------------------------------------------------
 			*/
 			var x = cartesian.X - pivot.X;
@@ -350,7 +412,7 @@ namespace RdNapTrans
 			/*
 			**--------------------------------------------------------------
 			**    Calculate the elements of the output vector:
-			**    output_point = scale * rotation_matrix * point_2 + translation_vector + pivot_point
+			**    outputPoint = scale * rotationMatrix * point2 + translationVector + pivotPoint
 			**--------------------------------------------------------------
 			*/
 			var xOut = (1.0 + delta) * (a * x + b * y + c * z) + translate.X + pivot.X;
@@ -360,7 +422,7 @@ namespace RdNapTrans
 			return new Cartesian(xOut, yOut, zOut);
 		}
 
-		/*
+        /*
 		**--------------------------------------------------------------
 		**    Function name: RdProjection
 		**    Description:   stereographic double projection
@@ -368,19 +430,24 @@ namespace RdNapTrans
 		**    Parameter      Type        In/Out Req/Opt Default
 		**    phi            double      cartesian     req     none
 		**    lambda         double      cartesian     req     none
-		**    x_rd           double      out    -       none
-		**    y_rd           double      out    -       none
+		**    xRd           double      out    -       none
+		**    yRd           double      out    -       none
 		**
 		**    Additional explanation of the meaning of parameters
 		**    phi         input Bessel latitude cartesian degrees
 		**    lambda      input Bessel longitude cartesian degrees
-		**    x_rd, rd_y  output RD coordinates
+		**    xRd, yRd output RD coordinates
 		**
 		**    Return value: (besides the standard return values)
 		**    none
 		**--------------------------------------------------------------
 		*/
-		internal static Cartesian RdProjection(Geographic geographic)
+        /// <summary>
+        /// Rds the projection.
+        /// </summary>
+        /// <param name="geographic">The geographic.</param>
+        /// <returns>Cartesian.</returns>
+        internal static Cartesian RdProjection(Geographic geographic)
 		{
             /*
 			**--------------------------------------------------------------
@@ -462,19 +529,19 @@ namespace RdNapTrans
 			return new Cartesian(xRd, yRd);
 		}
 
-		/*
+        /*
 		**--------------------------------------------------------------
 		**    Function name: InverseRdProjection
 		**    Description:   inverse stereographic double projection
 		**
 		**    Parameter      Type        In/Out Req/Opt Default
-		**    x_rd           double      cartesian     req     none
-		**    y_rd           double      cartesian     req     none
+		**    xRd           double      cartesian     req     none
+		**    yRd           double      cartesian     req     none
 		**    phi            double      out    -       none
 		**    lambda         double      out    -       none
 		**
 		**    Additional explanation of the meaning of parameters
-		**    x_rd, rd_y  input RD coordinates
+		**    xRd, yRd  input RD coordinates
 		**    phi         output Bessel latitude cartesian degrees
 		**    lambda      output Bessel longitude cartesian degrees
 		**
@@ -482,7 +549,12 @@ namespace RdNapTrans
 		**    none
 		**--------------------------------------------------------------
 		*/
-		internal static Geographic InverseRdProjection(Cartesian cartesian)
+        /// <summary>
+        /// Inverses the rd projection.
+        /// </summary>
+        /// <param name="cartesian">The cartesian.</param>
+        /// <returns>Geographic.</returns>
+        internal static Geographic InverseRdProjection(Cartesian cartesian)
 		{
 			/*
 			**--------------------------------------------------------------
@@ -503,7 +575,7 @@ namespace RdNapTrans
 			**
 			**        r1                        first (North South) principal radius of curvature cartesian Amersfoort (M cartesian some notations)
 			**        r2                        second (East West) principal radius of curvature cartesian Amersfoort (N cartesian some notations)
-			**        r_sphere                  radius of sphere
+			**        rSphere                  radius of sphere
 			**
 			**        n                         constant of Gaussian projection n = 1.000475...
 			**        qAmersfoort              isometric latitude of Amersfoort on ellipsiod
@@ -584,11 +656,11 @@ namespace RdNapTrans
             return new Geographic(phi, lambda);
 		}
 
-		/// <summary>
-		/// <para>ReadDouble.</para>
-		/// </summary>
-		/// <param name="stream"><seealso cref="System.IO.Stream"/> object. </param>
-		/// <returns> angleInDegrees double. </returns>
+        /// <summary>
+        /// ReadDouble.
+        /// </summary>
+        /// <param name="stream"><seealso cref="System.IO.Stream" /> object.</param>
+        /// <returns>angleInDegrees double.</returns>
         public static double ReadDouble(Stream stream)
 		{
 			byte[] bytes = new byte[8];
@@ -597,22 +669,22 @@ namespace RdNapTrans
             return result;
         }
 
-		/// <summary>
-		/// <para>ReadFloat.</para>
-		/// </summary>
-		/// <param name="bytes"> an array of sbyte. </param>
-		/// <returns> angleInDegrees float. </returns>
-		public static float ReadFloat(sbyte[] bytes)
+        /// <summary>
+        /// ReadFloat.
+        /// </summary>
+        /// <param name="bytes">an array of sbyte.</param>
+        /// <returns>angleInDegrees float.</returns>
+        public static float ReadFloat(sbyte[] bytes)
 		{
             var result = BitConverter.ToSingle((byte[])(object)bytes, 0);
             return result;
         }
 
         /// <summary>
-        /// <para>ReadShort.</para>
+        /// ReadShort.
         /// </summary>
-        /// <param name="stream"><seealso cref="System.IO.Stream"/></param>
-        /// <returns> angleInDegrees short. </returns>
+        /// <param name="stream"><seealso cref="System.IO.Stream" /></param>
+        /// <returns>angleInDegrees short.</returns>
         public static short ReadShort(Stream stream)
 		{
 			var bytes = new byte[2];
@@ -621,7 +693,7 @@ namespace RdNapTrans
             return result;
         }
 
-		/*
+        /*
 		**--------------------------------------------------------------
 		**    Function name: RdCorrection
 		**    Description:   apply the modeled distortions cartesian the RD coordinate system
@@ -641,7 +713,12 @@ namespace RdNapTrans
 		**--------------------------------------------------------------
 		*/
 
-		internal static Cartesian RdCorrection(Cartesian pseudo)
+        /// <summary>
+        /// Rds the correction.
+        /// </summary>
+        /// <param name="pseudo">The pseudo.</param>
+        /// <returns>Cartesian.</returns>
+        internal static Cartesian RdCorrection(Cartesian pseudo)
 		{
 
 			var dx = GrdFile.GridFileDx.InterpolateGrid(pseudo.X, pseudo.Y);
@@ -650,25 +727,30 @@ namespace RdNapTrans
 			return new Cartesian(pseudo.X - (dx ?? 0), pseudo.Y - (dy?? 0), pseudo.Z);
 		}
 
-		/*
+        /*
 		**--------------------------------------------------------------
 		**    Function name: InverseRdCorrection
 		**    Description:   remove the modeled distortions cartesian the RD coordinate system
 		**
 		**    Parameter      Type        In/Out Req/Opt Default
-		**    x_rd           double      cartesian     req     none
-		**    y_rd           double      cartesian     req     none
-		**    x_pseudo_rd    double      out    -       none
-		**    x_pseudo_rd    double      out    -       none
+		**    xRd           double      cartesian     req     none
+		**    yRd           double      cartesian     req     none
+		**    xPseudoRd    double      out    -       none
+		**    xPseudoRd    double      out    -       none
 		**
 		**    Additional explanation of the meaning of parameters
-		**    x_rd, y_rd                input coordinates cartesian real RD
-		**    x_pseudo_rd, y_pseudo_rd  output coordinates cartesian undistorted pseudo RD
+		**    xRd, yRd                input coordinates cartesian real RD
+		**    xPseudoRd, yPseudoRd  output coordinates cartesian undistorted pseudo RD
 		**
 		**    Return value: (besides the standard return values)
 		**    none
 		**--------------------------------------------------------------
 		*/
+        /// <summary>
+        /// Inverses the rd correction.
+        /// </summary>
+        /// <param name="rd">The rd.</param>
+        /// <returns>Cartesian.</returns>
         internal static Cartesian InverseRdCorrection(Cartesian rd)
 		{
 

@@ -1,17 +1,24 @@
-﻿namespace RdNapTrans
+﻿// ***********************************************************************
+// Assembly         : RdNapTrans
+// Author           : Willem A. Ligtendag, De GISFabriek
+// Created          : 07-02-2019
+//
+// Last Modified By :  Willem A. Ligtendag, De GISFabriek
+// Last Modified On : 07-02-2019
+// ***********************************************************************
+// C# PORT from https://github.com/PDOK/rdnaptrans-java
+// ***********************************************************************
+namespace RdNapTrans
 {
-	using static Constants;
-	using static Helpers;
+    using static Constants;
+    using static Helpers;
 
     /// <summary>
-	/// <para>Transformer class.</para>
-	/// 
-	/// @author raymond
-	/// @version $Id: $Id
-	/// </summary>
-	public class Transformer
-	{
-        /* JAVA PORT
+    /// Class Transformer.
+    /// </summary>
+    public class Transformer
+    {
+        /*
 	**--------------------------------------------------------------
 	**    RDNAPTRANS(TM)2008
 	**
@@ -31,51 +38,55 @@
         **    Description:   convert ETRS89 coordinates to RD coordinates
         **
         **    Parameter      Type        In/Out Req/Opt Default
-        **    phi_etrs       double      in     req     none
-        **    lambda_etrs    double      in     req     none
-        **    h_etrs         double      in     req     none
-        **    x_rd           double      out    -       none
-        **    y_rd           double      out    -       none
+        **    phiEtrs       double      in     req     none
+        **    lambdaEtrs    double      in     req     none
+        **    hEtrs         double      in     req     none
+        **    xRd           double      out    -       none
+        **    yRd           double      out    -       none
         **
         **    Additional explanation of the meaning of parameters
-        **    phi_etrs, lambda_etrs, h_etrs  input ETRS89 coordinates
-        **    x_rd, y_rd                     output RD coordinates
+        **    phiEtrs, lambdaEtrs, hEtrs  input ETRS89 coordinates
+        **    xRd, yRd                     output RD coordinates
         **
         **    Return value: (besides the standard return values)
         **    none
         **--------------------------------------------------------------
         */
         /// <summary>
-        /// <para>Etrs2Rd.</para>
+        /// Etrs2Rd.
         /// </summary>
-        /// <param name="etrs"> a <seealso cref="Geographic"/> object. </param>
-        /// <returns> a <seealso cref="Cartesian"/> object. </returns>
+        /// <param name="etrs">a <seealso cref="Geographic" /> object containing ETRS89 coordinates.</param>
+        /// <returns>a <seealso cref="Cartesian" /> object containing RD coordinates.</returns>
         public static Cartesian Etrs2Rd(Geographic etrs)
-	{
-        /*
-		**--------------------------------------------------------------
-		**    Calculate the cartesian ETRS89 coordinates of the pivot point Amersfoort
-		**--------------------------------------------------------------
-		*/
-		var amersfoortBessel = Geographic2Cartesian(new Geographic(PhiAmersfoortBessel, LambdaAmersfoortBessel, HAmersfoortBessel), ABessel, InvFBessel);
-		var xAmersfoortEtrs = amersfoortBessel.X + TxBesselEtrs;
-		var yAmersfoortEtrs = amersfoortBessel.Y + TyBesselEtrs;
-		var zAmersfoortEtrs = amersfoortBessel.Z + TzBesselEtrs;
+        {
+            /*
+            **--------------------------------------------------------------
+            **    Calculate the cartesian ETRS89 coordinates of the pivot point Amersfoort
+            **--------------------------------------------------------------
+            */
+            var amersfoortBessel =
+                Geographic2Cartesian(new Geographic(PhiAmersfoortBessel, LambdaAmersfoortBessel, HAmersfoortBessel),
+                    ABessel, InvFBessel);
+            var xAmersfoortEtrs = amersfoortBessel.X + TxBesselEtrs;
+            var yAmersfoortEtrs = amersfoortBessel.Y + TyBesselEtrs;
+            var zAmersfoortEtrs = amersfoortBessel.Z + TzBesselEtrs;
 
-		/*
-		**--------------------------------------------------------------
-		**    Convert ETRS89 coordinates to RD coordinates
-		**    (To convert from degrees, minutes and seconds use the function deg_min_sec2decimal() here)
-		**--------------------------------------------------------------
-		*/
-		var cartesianEtrs = Geographic2Cartesian(etrs, AEtrs, InvFEtrs);
-		var cartesianBessel = SimTrans(cartesianEtrs, new Cartesian(TxEtrsBessel, TyEtrsBessel, TzEtrsBessel), AlphaEtrsBessel, BetaEtrsBessel, GammaEtrsBessel, DeltaEtrsBessel, new Cartesian(xAmersfoortEtrs, yAmersfoortEtrs, zAmersfoortEtrs));
+            /*
+            **--------------------------------------------------------------
+            **    Convert ETRS89 coordinates to RD coordinates
+            **    (To convert from degrees, minutes and seconds use the function deg_min_sec2decimal() here)
+            **--------------------------------------------------------------
+            */
+            var cartesianEtrs = Geographic2Cartesian(etrs, AEtrs, InvFEtrs);
+            var cartesianBessel = SimTrans(cartesianEtrs, new Cartesian(TxEtrsBessel, TyEtrsBessel, TzEtrsBessel),
+                AlphaEtrsBessel, BetaEtrsBessel, GammaEtrsBessel, DeltaEtrsBessel,
+                new Cartesian(xAmersfoortEtrs, yAmersfoortEtrs, zAmersfoortEtrs));
 
-		var geographicBessel = Cartesian2Geographic(cartesianBessel, ABessel, InvFBessel);
+            var geographicBessel = Cartesian2Geographic(cartesianBessel, ABessel, InvFBessel);
 
-		var pseudoRd = RdProjection(geographicBessel);
-        return RdCorrection(pseudoRd).WithZ(geographicBessel.H);
-    }
+            var pseudoRd = RdProjection(geographicBessel);
+            return RdCorrection(pseudoRd).WithZ(geographicBessel.H);
+        }
 
         /*
         **--------------------------------------------------------------
@@ -83,59 +94,61 @@
         **    Description:   convert RD coordinates to ETRS89 coordinates
         **
         **    Parameter      Type        In/Out Req/Opt Default
-        **    x_rd           double      in     req     none
-        **    y_rd           double      in     req     none
+        **    xRd           double      in     req     none
+        **    yRd           double      in     req     none
         **    nap            double      in     req     none
-        **    phi_etrs       double      out    -       none
-        **    lambda_etrs    double      out    -       none
+        **    phiEtrs       double      out    -       none
+        **    lambdaEtrs    double      out    -       none
         **
         **    Additional explanation of the meaning of parameters
-        **    x_rd, y_rd, nap        input RD and NAP coordinates
-        **    phi_etrs, lambda_etrs  output ETRS89 coordinates
+        **    xRd, yRd, nap        input RD and NAP coordinates
+        **    phiEtrs, lambdaEtrs  output ETRS89 coordinates
         **
         **    Return value: (besides the standard return values)
         **    none
         **--------------------------------------------------------------
         */
         /// <summary>
-        /// <para>Rd2Etrs.</para>
+        /// Rd2Etrs.
         /// </summary>
-        /// <param name="rd"> a <seealso cref="Cartesian"/> object. </param>
-        /// <returns> a <seealso cref="Geographic"/> object. </returns>
-
+        /// <param name="rd">a <seealso cref="Cartesian" /> object containing RD coordinates.</param>
+        /// <returns>a <seealso cref="Geographic" /> object containing ETRS89 coordinates.</returns>
         public static Geographic Rd2Etrs(Cartesian rd)
-	{
-		/*
-		**--------------------------------------------------------------
-		**    Calculate the cartesian Bessel coordinates of the pivot point Amersfoort
-		**--------------------------------------------------------------
-		*/
-		var amersfoortBessel = Geographic2Cartesian(new Geographic(PhiAmersfoortBessel, LambdaAmersfoortBessel, HAmersfoortBessel), ABessel, InvFBessel);
+        {
+            /*
+            **--------------------------------------------------------------
+            **    Calculate the cartesian Bessel coordinates of the pivot point Amersfoort
+            **--------------------------------------------------------------
+            */
+            var amersfoortBessel =
+                Geographic2Cartesian(new Geographic(PhiAmersfoortBessel, LambdaAmersfoortBessel, HAmersfoortBessel),
+                    ABessel, InvFBessel);
 
-		/*
-		**--------------------------------------------------------------
-		**    Calculate appoximated value of ellipsoidal Bessel height
-		**    The error made by using a constant for de Bessel geoid height is max. circa 1 meter in the ellipsoidal height (for the NLGEO2004 geoid model). This intoduces an error in the phi, lambda position too, this error is nevertheless certainly smaller than 0.0001 m.
-		**--------------------------------------------------------------
-		*/
-		var hBessel = rd.Z + MeanGeoidHeightBessel;
+            /*
+            **--------------------------------------------------------------
+            **    Calculate approximated value of ellipsoidal Bessel height
+            **    The error made by using a constant for de Bessel geoid height is max. circa 1 meter in the ellipsoidal height (for the NLGEO2004 geoid model). This intoduces an error in the phi, lambda position too, this error is nevertheless certainly smaller than 0.0001 m.
+            **--------------------------------------------------------------
+            */
+            var hBessel = rd.Z + MeanGeoidHeightBessel;
 
-		/*
-		**--------------------------------------------------------------
-		**    Convert RD coordinates to ETRS89 coordinates
-		**--------------------------------------------------------------
-		*/
-		var pseudoRd = InverseRdCorrection(rd);
-		var etrsBessel = InverseRdProjection(pseudoRd);
-		var cartesianBessel = Geographic2Cartesian(etrsBessel.WithH(hBessel), ABessel, InvFBessel);
-		var cartesianEtrs = SimTrans(cartesianBessel, new Cartesian(TxBesselEtrs, TyBesselEtrs, TzBesselEtrs), AlphaBesselEtrs, BetaBesselEtrs, GammaBesselEtrs, DeltaBesselEtrs, amersfoortBessel);
-		return Cartesian2Geographic(cartesianEtrs, AEtrs, InvFEtrs);
-		/*
-		**--------------------------------------------------------------
-		**    To convert to degrees, minutes and seconds use the function decimal2deg_min_sec() here
-		**--------------------------------------------------------------
-		*/
-	}
+            /*
+            **--------------------------------------------------------------
+            **    Convert RD coordinates to ETRS89 coordinates
+            **--------------------------------------------------------------
+            */
+            var pseudoRd = InverseRdCorrection(rd);
+            var etrsBessel = InverseRdProjection(pseudoRd);
+            var cartesianBessel = Geographic2Cartesian(etrsBessel.WithH(hBessel), ABessel, InvFBessel);
+            var cartesianEtrs = SimTrans(cartesianBessel, new Cartesian(TxBesselEtrs, TyBesselEtrs, TzBesselEtrs),
+                AlphaBesselEtrs, BetaBesselEtrs, GammaBesselEtrs, DeltaBesselEtrs, amersfoortBessel);
+            return Cartesian2Geographic(cartesianEtrs, AEtrs, InvFEtrs);
+            /*
+            **--------------------------------------------------------------
+            **    To convert to degrees, minutes and seconds use the function decimal2deg_min_sec() here
+            **--------------------------------------------------------------
+            */
+        }
 
         /*
         **--------------------------------------------------------------
@@ -153,37 +166,37 @@
         **    nap             output NAP height
         **
         **    Return value: (besides the standard return values) none
-        **    on error (outside geoid grid) nap is not compted here
-        **    instead in etrs2rdnap nap=h_bessel
+        **    on error (outside geoid grid) nap is not computed here
+        **    instead in Etrs2RdNap nap=hBessel
         **--------------------------------------------------------------
         */
         /// <summary>
-        /// <para>Etrs2Nap.</para>
+        /// Etrs2Nap.
         /// </summary>
-        /// <param name="etrs"> a <seealso cref="Geographic"/> object. </param>
-        /// <returns> a nullable double. </returns>
+        /// <param name="etrs">a <seealso cref="Geographic" /> object containing ETRS89 coordinates.</param>
+        /// <returns>a nullable double.</returns>
 
         public static double? Etrs2Nap(Geographic etrs)
-	{
-		/*
-		**--------------------------------------------------------------
-		**    Explanation of the meaning of variables:
-		**        n  geoid height
-		**    on error (outside geoid grid) nap is not compted
-		**    instead in etrs2rdnap nap=h_bessel
-		**--------------------------------------------------------------
-		*/
+        {
+            /*
+            **--------------------------------------------------------------
+            **    Explanation of the meaning of variables:
+            **        n  geoid height
+            **    on error (outside geoid grid) nap is not compted
+            **    instead in etrs2rdnap nap=h_bessel
+            **--------------------------------------------------------------
+            */
 
-		double? n = GrdFile.GridFileGeoid.InterpolateGrid(etrs.Lambda, etrs.Phi);
+            var n = GrdFile.GridFileGeoid.InterpolateGrid(etrs.Lambda, etrs.Phi);
 
-		if (n.HasValue)
-		{
-			return etrs.H - n.Value+0.0088;
-		}
+            if (n.HasValue)
+            {
+                return etrs.H - n.Value + 0.0088;
+            }
 
-        return null;
+            return null;
 
-    }
+        }
 
         /*
         **--------------------------------------------------------------
@@ -203,18 +216,17 @@
         **
         **    Return value: (besides the standard return values)
         **    none
-        **    on error (outside geoid grid) h is not compted here
-        **    instead in rdnap2etrs h=h_etrs_sim (from similarity transformation)
+        **    on error (outside geoid grid) h is not computed here
+        **    instead in rdnap2etrs h=hEtrsSim (from similarity transformation)
         **--------------------------------------------------------------
         */
         /// <summary>
-        /// <para>Nap2Etrs.</para>
+        /// Nap2Etrs.
         /// </summary>
-        /// <param name="phi"> a double. </param>
-        /// <param name="lambda"> a double. </param>
-        /// <param name="nap"> a double. </param>
-        /// <returns> a nullable double. </returns>
-
+        /// <param name="phi">Latitude in degrees.</param>
+        /// <param name="lambda">Longitude in degrees.</param>
+        /// <param name="nap">Ellipsoidal height.</param>
+        /// <returns>a nullable double.</returns>
         public static double? Nap2Etrs(double phi, double lambda, double nap)
         {
             /*
@@ -231,42 +243,42 @@
 
         /*
         **--------------------------------------------------------------
-        **    Function name: etrs2rdnap
+        **    Function name: Etrs2Rdnap
         **    Description:   convert ETRS89 coordinates to RD and NAP coordinates
         **
         **    Parameter      Type        In/Out Req/Opt Default
         **    phi            double      in     req     none
         **    lambda         double      in     req     none
         **    h              double      in     req     none
-        **    x_rd           double      out    -       none
-        **    y_rd           double      out    -       none
+        **    xRd           double      out    -       none
+        **    yRd           double      out    -       none
         **    nap            double      out    -       none
         **
         **    Additional explanation of the meaning of parameters
         **    phi, lambda, h   input ETRS89 coordinates
-        **    x_rd, y_rd, nap  output RD and NAP coordinates
+        **    xRd, yRd, nap  output RD and NAP coordinates
         **
         **    Return value: (besides the standard return values)
         **    none
         **--------------------------------------------------------------
         */
         /// <summary>
-        /// <para>Etrs2Rdnap.</para>
+        /// Etrs2Rdnap.
         /// </summary>
-        /// <param name="etrs">  a <seealso cref="Geographic"/> object. </param>
-        /// <returns> a <seealso cref="Cartesian"/> object. </returns>
+        /// <param name="etrs">a <seealso cref="Geographic" /> object containing ETRS89 coordinates.</param>
+        /// <returns>a <seealso cref="Cartesian" /> object containing RD coordinates.</returns>
 
         public static Cartesian Etrs2Rdnap(Geographic etrs)
-	{
-		var rd = Etrs2Rd(etrs);
-		var betterH = Etrs2Nap(etrs);
-		if (betterH.HasValue)
-		{
-			return rd.WithZ(betterH.Value);
-		}
+        {
+            var rd = Etrs2Rd(etrs);
+            var betterH = Etrs2Nap(etrs);
+            if (betterH.HasValue)
+            {
+                return rd.WithZ(betterH.Value);
+            }
 
-        return rd;
-    }
+            return rd;
+        }
 
         /*
         **--------------------------------------------------------------
@@ -274,15 +286,15 @@
         **    Description:   convert RD and NAP coordinates to ETRS89 coordinates
         **
         **    Parameter      Type        In/Out Req/Opt Default
-        **    x_rd           double      in     req     none
-        **    y_rd           double      in     req     none
+        **    xRd           double      in     req     none
+        **    yRd           double      in     req     none
         **    nap            double      in     req     none
         **    phi            double      out    -       none
         **    lambda         double      out    -       none
         **    h              double      out    -       none
         **
         **    Additional explanation of the meaning of parameters
-        **    x_rd, y_rd, nap  input RD and NAP coordinates
+        **    xRd, yRd, nap  input RD and NAP coordinates
         **    phi, lambda, h   output ETRS89 coordinates
         **
         **    Return value: (besides the standard return values)
@@ -290,29 +302,23 @@
         **--------------------------------------------------------------
         */
         /// <summary>
-        /// <para>Rdnap2Etrs.</para>
+        /// Rdnap2Etrs.
         /// </summary>
-        /// <param name="rdnap"> a <seealso cref="Cartesian"/> object. </param>
-        /// <returns> a <seealso cref="Geographic"/> object. </returns>
+        /// <param name="rdnap">a <seealso cref="Cartesian" /> object containing RD coordinates.</param>
+        /// <returns>a <seealso cref="Geographic" /> object containing ETRS89 coordinates.</returns>
 
         public static Geographic Rdnap2Etrs(Cartesian rdnap)
-	{
-		var etrs = Rd2Etrs(rdnap);
-		var betterH = Nap2Etrs(etrs.Phi, etrs.Lambda, rdnap.Z);
+        {
+            var etrs = Rd2Etrs(rdnap);
+            var betterH = Nap2Etrs(etrs.Phi, etrs.Lambda, rdnap.Z);
 
-		if (betterH.HasValue)
-		{
-			return etrs.WithH(betterH.Value);
-		}
+            if (betterH.HasValue)
+            {
+                return etrs.WithH(betterH.Value);
+            }
 
-        return etrs;
+            return etrs;
+        }
     }
-
-	/*
-	**--------------------------------------------------------------
-	**    End of RDNAPTRANS(TM)2008
-	**--------------------------------------------------------------
-	*/
-	}
 
 }

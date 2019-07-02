@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RdNapTrans
+// Author           : Willem A. Ligtendag, De GISFabriek
+// Created          : 07-02-2019
+//
+// Last Modified By :  Willem A. Ligtendag, De GISFabriek
+// Last Modified On : 07-02-2019
+// ***********************************************************************
+// C# PORT from https://github.com/PDOK/rdnaptrans-java
+// ***********************************************************************
+using System;
 using System.IO;
 using System.Reflection;
 
@@ -7,15 +17,12 @@ namespace RdNapTrans
     using static Constants;
     using static Helpers;
 
+
     /// <summary>
-    /// <para>GrdFile class.</para>
-    /// 
-    /// @author raymond
-    /// @version $Id: $Id
+    /// Class GrdFile.
     /// </summary>
     public class GrdFile
     {
-
         /*
     **--------------------------------------------------------------
     **    Continuation of static data declarations
@@ -38,40 +45,47 @@ namespace RdNapTrans
     **        50\u0248 31' 30" < ETRS89_latitude  (stepsize 0\u0248 3' 0") < 53\u0248 40' 30"
     **         3\u0248 12' 30" < ETRS89_longitude (stepsize 0\u0248 5' 0") <  7\u0248 27' 30"
     **
-    **        The stepsizes correspond to about 5,5 km x 5,5 km in the Netherlands.
+    **        The step sizes correspond to about 5,5 km x 5,5 km in the Netherlands.
     **--------------------------------------------------------------
     */
         /// <summary>
-        /// Constant <code>GridFileDx</code> </summary>
+        /// Constant <code>GridFileDx</code>
+        /// </summary>
         public static readonly GrdFile GridFileDx = new GrdFile("RdNapTrans.Resources.x2c.grd");
 
         /// <summary>
-        /// Constant <code>GridFileDy</code> </summary>
+        /// Constant <code>GridFileDy</code>
+        /// </summary>
         public static readonly GrdFile GridFileDy = new GrdFile("RdNapTrans.Resources.y2c.grd");
 
         /// <summary>
-        /// Constant <code>GridFileGeoid</code> </summary>
+        /// Constant <code>GridFileGeoid</code>
+        /// </summary>
         public static readonly GrdFile GridFileGeoid = new GrdFile("RdNapTrans.Resources.nlgeo04.grd");
 
-        private readonly sbyte[] _grdInner;
-        private readonly GrdFileHeader _header;
+        /// <summary>
+        /// The grid contents
+        /// </summary>
+        private readonly sbyte[] _gridContents;
+        /// <summary>
+        /// The grid header
+        /// </summary>
+        private readonly GrdFileHeader _gridHeader;
 
         /// <summary>
-        /// <para>Constructor for GrdFile.</para>
+        /// Constructor for GrdFile.
         /// </summary>
-        /// <param name="resourceName"> Name of a .grd resource. </param>
+        /// <param name="resourceName">Name of a .grd resource.</param>
         public GrdFile(string resourceName)
         {
             var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
             if (stream != null)
             {
-                _header = ReadGridFileHeader(stream);
+                _gridHeader = ReadGridFileHeader(stream);
                 stream.Position = 0;
-                var pos = stream.Position;
-                var len = stream.Length;
-                var grdInnerLen = len - pos;
-                var grdInnerLenPos = 0;
-                _grdInner = new sbyte[grdInnerLen];
+                var streamLength = stream.Length;
+                var index = 0;
+                _gridContents = new sbyte[streamLength];
                 using (var reader = new BinaryReader(stream))
                 {
                     while (true)
@@ -86,7 +100,7 @@ namespace RdNapTrans
                             break;
                         }
 
-                        _grdInner[grdInnerLenPos++] = sb;
+                        _gridContents[index++] = sb;
                     }
                 }
             }
@@ -113,12 +127,12 @@ namespace RdNapTrans
 		**--------------------------------------------------------------
 		*/
         /// <summary>
-        /// <para>InterpolateGrid.</para>
+        /// InterpolateGrid.
         /// </summary>
-        /// <param name="x"> X coordinate. </param>
-        /// <param name="y"> Y coordinate. </param>
-        /// <returns> a nullable double. </returns>
-        /// <exception cref="IOException"> if any. </exception>
+        /// <param name="x">X coordinate.</param>
+        /// <param name="y">Y coordinate.</param>
+        /// <returns>a nullable double.</returns>
+        /// <exception cref="IOException">if any.</exception>
         public virtual double? InterpolateGrid(double x, double y)
         {
             var recordNumber = new int[16];
@@ -146,7 +160,7 @@ namespace RdNapTrans
             **    Check for location safely inside the bounding box of grid
             **--------------------------------------------------------------
             */
-            if (x <= _header.SafeMinX || x >= _header.SafeMaxX || y <= _header.SafeMinY || y >= _header.SafeMaxY)
+            if (x <= _gridHeader.SafeMinX || x >= _gridHeader.SafeMaxX || y <= _gridHeader.SafeMinY || y >= _gridHeader.SafeMaxY)
             {
                 return null;
             }
@@ -166,8 +180,8 @@ namespace RdNapTrans
             **    ddx and ddy (in parts of the grid interval) are defined relative to grid point 9, respectively to the right and down.
             **--------------------------------------------------------------
             */
-            var ddx = (x - _header.MinX) / _header.StepSizeX - Math.Floor((x - _header.MinX) / _header.StepSizeX);
-            var ddy = 1 - ((y - _header.MinY) / _header.StepSizeY - Math.Floor((y - _header.MinY) / _header.StepSizeY));
+            var ddx = (x - _gridHeader.MinX) / _gridHeader.StepSizeX - Math.Floor((x - _gridHeader.MinX) / _gridHeader.StepSizeX);
+            var ddy = 1 - ((y - _gridHeader.MinY) / _gridHeader.StepSizeY - Math.Floor((y - _gridHeader.MinY) / _gridHeader.StepSizeY));
 
             /*
             **--------------------------------------------------------------
@@ -180,23 +194,23 @@ namespace RdNapTrans
             **                   0 . . . . . . size_x-1
             **--------------------------------------------------------------
             */
-            recordNumber[5] = (int) ((x - _header.MinX) / _header.StepSizeX +
-                                      Math.Floor((y - _header.MinY) / _header.StepSizeY) * _header.SizeX);
-            recordNumber[0] = recordNumber[5] - _header.SizeX - 1;
-            recordNumber[1] = recordNumber[5] - _header.SizeX;
-            recordNumber[2] = recordNumber[5] - _header.SizeX + 1;
-            recordNumber[3] = recordNumber[5] - _header.SizeX + 2;
+            recordNumber[5] = (int) ((x - _gridHeader.MinX) / _gridHeader.StepSizeX +
+                                      Math.Floor((y - _gridHeader.MinY) / _gridHeader.StepSizeY) * _gridHeader.SizeX);
+            recordNumber[0] = recordNumber[5] - _gridHeader.SizeX - 1;
+            recordNumber[1] = recordNumber[5] - _gridHeader.SizeX;
+            recordNumber[2] = recordNumber[5] - _gridHeader.SizeX + 1;
+            recordNumber[3] = recordNumber[5] - _gridHeader.SizeX + 2;
             recordNumber[4] = recordNumber[5] - 1;
             recordNumber[6] = recordNumber[5] + 1;
             recordNumber[7] = recordNumber[5] + 2;
-            recordNumber[8] = recordNumber[5] + _header.SizeX - 1;
-            recordNumber[9] = recordNumber[5] + _header.SizeX;
-            recordNumber[10] = recordNumber[5] + _header.SizeX + 1;
-            recordNumber[11] = recordNumber[5] + _header.SizeX + 2;
-            recordNumber[12] = recordNumber[5] + 2 * _header.SizeX - 1;
-            recordNumber[13] = recordNumber[5] + 2 * _header.SizeX;
-            recordNumber[14] = recordNumber[5] + 2 * _header.SizeX + 1;
-            recordNumber[15] = recordNumber[5] + 2 * _header.SizeX + 2;
+            recordNumber[8] = recordNumber[5] + _gridHeader.SizeX - 1;
+            recordNumber[9] = recordNumber[5] + _gridHeader.SizeX;
+            recordNumber[10] = recordNumber[5] + _gridHeader.SizeX + 1;
+            recordNumber[11] = recordNumber[5] + _gridHeader.SizeX + 2;
+            recordNumber[12] = recordNumber[5] + 2 * _gridHeader.SizeX - 1;
+            recordNumber[13] = recordNumber[5] + 2 * _gridHeader.SizeX;
+            recordNumber[14] = recordNumber[5] + 2 * _gridHeader.SizeX + 1;
+            recordNumber[15] = recordNumber[5] + 2 * _gridHeader.SizeX + 2;
 
             /*
             **--------------------------------------------------------------
@@ -207,7 +221,7 @@ namespace RdNapTrans
             for (var i = 0; i < 16; i = i + 1)
             {
                 recordValue[i] = ReadGridFileBody(recordNumber[i]);
-                if (recordValue[i] > _header.MaxValue + Precision || recordValue[i] < _header.MinValue - Precision)
+                if (recordValue[i] > _gridHeader.MaxValue + Precision || recordValue[i] < _gridHeader.MinValue - Precision)
                 {
                     return null;
                 }
@@ -291,6 +305,12 @@ namespace RdNapTrans
         **--------------------------------------------------------------
         */
 
+        /// <summary>
+        /// Reads the grid file header.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <returns>GrdFileHeader.</returns>
+        /// <exception cref="FormatException">Not a valid grd file</exception>
         private static GrdFileHeader ReadGridFileHeader(Stream stream)
         {
             /*
@@ -353,6 +373,11 @@ namespace RdNapTrans
         **    none
         **--------------------------------------------------------------
         */
+        /// <summary>
+        /// Reads the grid file body.
+        /// </summary>
+        /// <param name="recordNumber">The record number.</param>
+        /// <returns>System.Single.</returns>
         private float ReadGridFileBody(int recordNumber)
         {
             const int recordLength = 4;
@@ -374,7 +399,7 @@ namespace RdNapTrans
             var destinationStart = 0;
             for (var i = start; i < start + recordLength; i++)
             {
-                var item = _grdInner[i];
+                var item = _gridContents[i];
                 record[destinationStart++] = item;
             }
             
@@ -382,6 +407,9 @@ namespace RdNapTrans
             return ReadFloat(record);
         }
 
+        /// <summary>
+        /// Class GrdFileHeader.
+        /// </summary>
         internal class GrdFileHeader
         {
 
@@ -398,23 +426,76 @@ namespace RdNapTrans
             **    MaxValue  maximum value in grid (besides the error values)
             */
 
+            /// <summary>
+            /// The size x
+            /// </summary>
             public readonly short SizeX;
+            /// <summary>
+            /// The size y
+            /// </summary>
             public readonly short SizeY;
+            /// <summary>
+            /// The minimum x
+            /// </summary>
             public readonly double MinX;
+            /// <summary>
+            /// The maximum x
+            /// </summary>
             public readonly double MaxX;
+            /// <summary>
+            /// The minimum y
+            /// </summary>
             public readonly double MinY;
+            /// <summary>
+            /// The maximum y
+            /// </summary>
             public readonly double MaxY;
+            /// <summary>
+            /// The minimum value
+            /// </summary>
             public readonly double MinValue;
+            /// <summary>
+            /// The maximum value
+            /// </summary>
             public readonly double MaxValue;
 
+            /// <summary>
+            /// The step size x
+            /// </summary>
             public readonly double StepSizeX;
+            /// <summary>
+            /// The step size y
+            /// </summary>
             public readonly double StepSizeY;
 
+            /// <summary>
+            /// The safe minimum x
+            /// </summary>
             public readonly double SafeMinX;
+            /// <summary>
+            /// The safe maximum x
+            /// </summary>
             public readonly double SafeMaxX;
+            /// <summary>
+            /// The safe minimum y
+            /// </summary>
             public readonly double SafeMinY;
+            /// <summary>
+            /// The safe maximum y
+            /// </summary>
             public readonly double SafeMaxY;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="GrdFileHeader"/> class.
+            /// </summary>
+            /// <param name="sizeX">The size x.</param>
+            /// <param name="sizeY">The size y.</param>
+            /// <param name="minX">The minimum x.</param>
+            /// <param name="maxX">The maximum x.</param>
+            /// <param name="minY">The minimum y.</param>
+            /// <param name="maxY">The maximum y.</param>
+            /// <param name="minValue">The minimum value.</param>
+            /// <param name="maxValue">The maximum value.</param>
             public GrdFileHeader(short sizeX, short sizeY, double minX, double maxX, double minY, double maxY,
                 double minValue, double maxValue)
             {
